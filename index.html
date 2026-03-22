@@ -1,0 +1,1691 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>HướngNghiệp THPT — Khám Phá & Định Hướng Tương Lai</title>
+<meta name="description" content="Cổng thông tin hướng nghiệp toàn diện cho học sinh THPT: MBTI, trường ĐH/CĐ, xét tuyển, chứng chỉ."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+/* ======================================================
+   FONTS: DM Sans (body) + Fraunces (display) — professional
+   Import in HTML: Google Fonts
+====================================================== */
+
+/* ======================================================
+   CSS VARIABLES — LIGHT THEME
+====================================================== */
+:root {
+  /* Backgrounds */
+  --bg:   #f5f4f0;
+  --bg2:  #ffffff;
+  --bg3:  #f0ede8;
+  --bg4:  #e8e4de;
+
+  /* Brand accent colours */
+  --v1:   #5b3de8;   /* indigo   */
+  --v2:   #d4488a;   /* rose     */
+  --v3:   #0891b2;   /* cyan     */
+  --v4:   #d97706;   /* amber    */
+  --v5:   #059669;   /* emerald  */
+
+  --glow: rgba(91,61,232,.18);
+
+  /* Text */
+  --t1:  #1a1523;
+  --t2:  #4b4560;
+  --t3:  #9490a8;
+
+  /* Borders */
+  --bd:  rgba(26,21,35,.08);
+  --bda: rgba(91,61,232,.3);
+
+  /* Radius */
+  --r1: 10px;
+  --r2: 16px;
+  --r3: 24px;
+
+  /* Shadows */
+  --sh:  0 4px 24px rgba(26,21,35,.08);
+  --sh2: 0 12px 40px rgba(26,21,35,.12);
+
+  /* Transition */
+  --tr: all .25s cubic-bezier(.4,0,.2,1);
+
+  /* Fonts */
+  --fd: 'Fraunces', serif;
+  --fb: 'DM Sans', sans-serif;
+}
+
+/* ======================================================
+   RESET & BASE
+====================================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--bg);
+  color: var(--t1);
+  font-family: var(--fb);
+  line-height: 1.65;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Subtle grain texture */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg3); }
+::-webkit-scrollbar-thumb { background: var(--v1); border-radius: 3px; }
+
+/* ======================================================
+   ANIMATIONS
+====================================================== */
+@keyframes floatUp   { from { opacity:0; transform:translateY(24px) } to { opacity:1; transform:translateY(0) } }
+@keyframes pulse     { 0%,100%{opacity:1} 50%{opacity:.45} }
+@keyframes spin      { to { transform:rotate(360deg) } }
+@keyframes shimmer   { 0%{background-position:-200% center} 100%{background-position:200% center} }
+@keyframes orbFloat  { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-14px) scale(1.03)} }
+@keyframes scaleIn   { from{opacity:0;transform:scale(.94)} to{opacity:1;transform:scale(1)} }
+@keyframes glowPulse { 0%,100%{box-shadow:0 4px 20px var(--glow)} 50%{box-shadow:0 8px 40px rgba(91,61,232,.3)} }
+@keyframes confetti  { 0%{transform:translateY(-20px) rotate(0);opacity:1} 100%{transform:translateY(100vh) rotate(720deg);opacity:0} }
+@keyframes slideDown { from{opacity:0;transform:translateY(-10px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn    { from{opacity:0} to{opacity:1} }
+
+/* ======================================================
+   DECORATIVE ORBS (light, subtle)
+====================================================== */
+.orbs { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+.orb  { position:absolute; border-radius:50%; filter:blur(90px); animation:orbFloat 10s ease-in-out infinite; }
+.orb1 { width:600px; height:600px; background:radial-gradient(circle,rgba(91,61,232,.07) 0%,transparent 70%);  top:-150px; left:-150px; }
+.orb2 { width:500px; height:500px; background:radial-gradient(circle,rgba(212,72,138,.06) 0%,transparent 70%); bottom:0;   right:-100px; animation-delay:-4s; }
+.orb3 { width:400px; height:400px; background:radial-gradient(circle,rgba(8,145,178,.05) 0%,transparent 70%);  top:40%;    left:45%;    animation-delay:-8s; }
+
+/* ======================================================
+   TOAST
+====================================================== */
+.toast {
+  position:fixed; bottom:28px; right:28px;
+  background:var(--t1); color:#fff;
+  border-radius:var(--r1); padding:12px 18px;
+  font-size:.84rem; font-weight:500;
+  z-index:9999; box-shadow:var(--sh2);
+  animation:floatUp .3s ease;
+  display:flex; align-items:center; gap:9px;
+}
+.toast.hidden { display:none; }
+
+/* ======================================================
+   NAVBAR
+====================================================== */
+.navbar {
+  position:fixed; top:0; left:0; right:0; z-index:500;
+  padding:0 40px;
+  display:flex; align-items:center; justify-content:space-between;
+  height:62px;
+  background:rgba(245,244,240,.92);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--bd);
+}
+.logo { display:flex; align-items:center; gap:10px; cursor:pointer; text-decoration:none; }
+.logo-icon {
+  width:36px; height:36px;
+  background:linear-gradient(135deg,var(--v1),var(--v2));
+  border-radius:9px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:17px; color:#fff;
+  box-shadow:0 3px 12px rgba(91,61,232,.3);
+}
+.logo span {
+  font-family:var(--fd);
+  font-weight:700;
+  font-size:1rem;
+  color:var(--t1);
+  font-optical-sizing:auto;
+}
+.nav-links { display:flex; gap:2px; align-items:center; }
+.nav-link {
+  padding:6px 13px; border-radius:8px;
+  font-size:.82rem; font-weight:500;
+  cursor:pointer; border:none;
+  background:transparent; color:var(--t2);
+  transition:var(--tr); white-space:nowrap;
+  display:flex; align-items:center; gap:5px;
+  font-family:var(--fb);
+}
+.nav-link:hover, .nav-link.active { background:var(--bg3); color:var(--t1); }
+.nav-cta {
+  padding:8px 18px; border-radius:8px;
+  background:var(--t1); color:#fff;
+  border:none; font-size:.82rem; font-weight:600;
+  cursor:pointer; transition:var(--tr);
+  display:flex; align-items:center; gap:6px;
+  font-family:var(--fb);
+}
+.nav-cta:hover { background:var(--v1); transform:translateY(-1px); box-shadow:0 4px 16px rgba(91,61,232,.3); }
+.hamburger { display:none; flex-direction:column; gap:4px; cursor:pointer; padding:5px; background:none; border:none; }
+.hamburger span { width:20px; height:2px; background:var(--t2); border-radius:2px; transition:var(--tr); }
+
+/* ======================================================
+   SECTION SYSTEM
+====================================================== */
+.section { display:none; min-height:100vh; padding:80px 20px 60px; position:relative; }
+.section.active { display:flex; flex-direction:column; animation:fadeIn .35s ease; }
+.page-center { max-width:880px; margin:0 auto; width:100%; position:relative; z-index:1; }
+.sec-head { text-align:center; margin-bottom:48px; }
+.sec-label {
+  display:inline-block; font-size:.7rem; font-weight:600;
+  text-transform:uppercase; letter-spacing:.2em;
+  color:var(--v1); margin-bottom:10px;
+  font-family:var(--fb);
+}
+.sec-title {
+  font-family:var(--fd);
+  font-size:clamp(1.8rem,4.5vw,2.8rem);
+  font-weight:700;
+  line-height:1.1;
+  margin-bottom:12px;
+  color:var(--t1);
+  font-optical-sizing:auto;
+}
+.sec-sub { color:var(--t2); font-size:.95rem; max-width:500px; margin:0 auto; line-height:1.7; }
+
+/* ======================================================
+   HOME HERO
+====================================================== */
+#home { align-items:center; justify-content:center; text-align:center; padding:100px 20px 60px; }
+.hero-inner { position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; width:100%; }
+
+.hero-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:6px 16px;
+  background:var(--bg2);
+  border:1px solid var(--bd);
+  border-radius:50px;
+  font-size:.72rem; font-weight:600;
+  color:var(--v1);
+  margin-bottom:28px;
+  animation:floatUp .5s ease both;
+  letter-spacing:.06em; text-transform:uppercase;
+  box-shadow:var(--sh);
+  font-family:var(--fb);
+}
+.badge-dot { width:6px; height:6px; background:var(--v2); border-radius:50%; animation:pulse 2s infinite; }
+
+.hero-title {
+  font-family:var(--fd);
+  font-size:clamp(2.8rem,6.5vw,5rem);
+  font-weight:700;
+  line-height:1.05;
+  margin-bottom:20px;
+  animation:floatUp .6s ease .1s both;
+  font-optical-sizing:auto;
+  letter-spacing:-.02em;
+}
+.hero-title .l1 { display:block; color:var(--t1); }
+.hero-title .l2 {
+  display:block;
+  background:linear-gradient(135deg,var(--v1) 0%,var(--v2) 60%);
+  background-size:200% auto;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:shimmer 5s linear infinite;
+}
+
+.hero-desc {
+  font-size:clamp(.95rem,2vw,1.1rem);
+  color:var(--t2);
+  max-width:540px;
+  margin:0 auto 36px;
+  line-height:1.75;
+  animation:floatUp .6s ease .2s both;
+  font-weight:400;
+}
+
+.hero-cta { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; animation:floatUp .6s ease .3s both; }
+
+.btn-primary {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:13px 30px;
+  background:var(--t1); color:#fff;
+  border:none; border-radius:10px;
+  font-family:var(--fb); font-size:.9rem; font-weight:600;
+  cursor:pointer; transition:var(--tr);
+  letter-spacing:.01em;
+}
+.btn-primary:hover { background:var(--v1); transform:translateY(-2px); box-shadow:0 12px 32px rgba(91,61,232,.3); }
+
+.btn-ghost {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:13px 26px;
+  background:var(--bg2); color:var(--t2);
+  border:1px solid var(--bd); border-radius:10px;
+  font-family:var(--fb); font-size:.9rem; font-weight:500;
+  cursor:pointer; transition:var(--tr); text-decoration:none;
+  box-shadow:var(--sh);
+}
+.btn-ghost:hover { border-color:var(--v1); color:var(--v1); box-shadow:var(--sh2); }
+
+.hero-stats { display:flex; gap:48px; justify-content:center; margin-top:52px; animation:floatUp .7s ease .4s both; }
+.stat { text-align:center; }
+.stat-n {
+  font-family:var(--fd); font-size:2rem; font-weight:700;
+  color:var(--t1); font-optical-sizing:auto;
+}
+.stat-l { font-size:.68rem; color:var(--t3); text-transform:uppercase; letter-spacing:.12em; font-weight:600; margin-top:2px; }
+
+/* Stat dividers */
+.hero-stats .stat + .stat { padding-left:48px; border-left:1px solid var(--bd); }
+
+/* Feature cards */
+.feature-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:14px;
+  margin-top:56px; animation:floatUp .8s ease .5s both;
+  max-width:800px; width:100%;
+}
+.feat-card {
+  background:var(--bg2); border:1px solid var(--bd);
+  border-radius:var(--r2); padding:24px 20px;
+  text-align:center; cursor:pointer; transition:var(--tr);
+  position:relative; overflow:hidden;
+  box-shadow:var(--sh);
+}
+.feat-card::after {
+  content:''; position:absolute;
+  bottom:0; left:0; right:0; height:3px;
+  opacity:0; transition:opacity .25s;
+}
+.feat-card:nth-child(1)::after { background:linear-gradient(90deg,var(--v1),var(--v2)); }
+.feat-card:nth-child(2)::after { background:linear-gradient(90deg,var(--v3),var(--v5)); }
+.feat-card:nth-child(3)::after { background:linear-gradient(90deg,var(--v4),var(--v2)); }
+.feat-card:nth-child(4)::after { background:linear-gradient(90deg,var(--v5),var(--v3)); }
+.feat-card:nth-child(5)::after { background:linear-gradient(90deg,var(--v2),var(--v4)); }
+.feat-card:nth-child(6)::after { background:linear-gradient(90deg,var(--v1),var(--v3)); }
+.feat-card:hover { transform:translateY(-4px); border-color:var(--bda); box-shadow:var(--sh2); }
+.feat-card:hover::after { opacity:1; }
+.feat-icon  { font-size:1.9rem; margin-bottom:10px; display:block; }
+.feat-title { font-family:var(--fb); font-size:.88rem; font-weight:700; margin-bottom:5px; color:var(--t1); }
+.feat-desc  { font-size:.76rem; color:var(--t3); line-height:1.55; }
+
+/* Home banner */
+.home-banner { width:100%; max-width:820px; margin-top:56px; border-radius:var(--r2); overflow:hidden; position:relative; animation:floatUp .9s ease .6s both; box-shadow:var(--sh2); }
+.home-banner img { width:100%; height:220px; object-fit:cover; display:block; }
+.banner-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(135deg,rgba(91,61,232,.72),rgba(212,72,138,.55));
+  display:flex; align-items:center; justify-content:center;
+  flex-direction:column; gap:8px; text-align:center; padding:24px;
+}
+.banner-overlay h3 { font-family:var(--fd); font-size:1.3rem; font-weight:700; color:#fff; font-optical-sizing:auto; }
+.banner-overlay p  { color:rgba(255,255,255,.85); font-size:.88rem; max-width:400px; }
+
+/* ======================================================
+   MODAL
+====================================================== */
+.modal-overlay {
+  position:fixed; inset:0;
+  background:rgba(26,21,35,.45);
+  z-index:800; display:flex; align-items:center; justify-content:center;
+  padding:20px; animation:fadeIn .25s ease;
+  backdrop-filter:blur(8px);
+}
+.modal-overlay.hidden { display:none; }
+.modal {
+  background:var(--bg2); border:1px solid var(--bd);
+  border-radius:var(--r3); width:100%; max-width:660px;
+  max-height:90vh; overflow-y:auto;
+  position:relative; animation:scaleIn .35s ease;
+  box-shadow:0 24px 80px rgba(26,21,35,.18);
+}
+.modal-close {
+  position:absolute; top:14px; right:14px;
+  width:32px; height:32px;
+  background:var(--bg3); border:none; border-radius:50%;
+  color:var(--t3); font-size:.9rem; cursor:pointer;
+  transition:var(--tr); display:flex; align-items:center; justify-content:center; z-index:10;
+}
+.modal-close:hover { background:var(--bg4); color:var(--t1); }
+
+/* Quiz modal */
+.modal-quiz-wrap { padding:32px 36px 28px; }
+.quiz-header { margin-bottom:24px; }
+.quiz-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.quiz-counter { font-family:var(--fb); font-size:.78rem; font-weight:600; color:var(--t3); text-transform:uppercase; letter-spacing:.1em; }
+.quiz-counter .cur { color:var(--v1); font-size:1rem; font-weight:700; }
+.dim-tag { padding:4px 11px; border-radius:20px; font-size:.67rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
+.dim-EI { background:rgba(91,61,232,.1);  color:var(--v1);  border:1px solid rgba(91,61,232,.2);  }
+.dim-SN { background:rgba(8,145,178,.1);  color:var(--v3);  border:1px solid rgba(8,145,178,.2);  }
+.dim-TF { background:rgba(212,72,138,.1); color:var(--v2);  border:1px solid rgba(212,72,138,.2); }
+.dim-JP { background:rgba(217,119,6,.1);  color:var(--v4);  border:1px solid rgba(217,119,6,.2);  }
+
+.prog-wrap { height:4px; background:var(--bg3); border-radius:10px; overflow:hidden; }
+.prog-fill {
+  height:100%;
+  background:linear-gradient(90deg,var(--v1),var(--v2));
+  border-radius:10px;
+  transition:width .5s cubic-bezier(.4,0,.2,1);
+}
+
+.q-card {
+  background:var(--bg); border:1px solid var(--bd);
+  border-radius:var(--r2); padding:26px 22px;
+  margin-bottom:14px; position:relative; overflow:hidden;
+  animation:scaleIn .35s ease;
+}
+.q-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg,var(--v1),var(--v2));
+}
+.q-num-bg {
+  font-family:var(--fd); font-size:3rem; font-weight:700;
+  color:rgba(91,61,232,.06);
+  position:absolute; top:10px; right:18px; line-height:1; user-select:none;
+}
+.q-text {
+  font-family:var(--fd); font-size:clamp(1rem,2.5vw,1.2rem);
+  font-weight:600; line-height:1.45; color:var(--t1);
+  position:relative; z-index:1; font-optical-sizing:auto;
+}
+
+.opts { display:grid; gap:10px; margin-bottom:18px; }
+.opt-btn {
+  display:flex; align-items:flex-start; gap:13px;
+  padding:14px 18px;
+  background:var(--bg2); border:1.5px solid var(--bd);
+  border-radius:var(--r2); cursor:pointer; text-align:left;
+  transition:var(--tr); position:relative; overflow:hidden;
+  font-family:var(--fb); width:100%;
+}
+.opt-btn:hover { border-color:var(--v1); background:var(--bg); transform:translateX(3px); }
+.opt-letter {
+  width:32px; height:32px; min-width:32px; border-radius:8px;
+  background:var(--bg3); border:1px solid var(--bd);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--fb); font-weight:700; font-size:.8rem; color:var(--t3);
+  transition:var(--tr); position:relative; z-index:1;
+}
+.opt-btn:hover .opt-letter { background:rgba(91,61,232,.1); border-color:var(--v1); color:var(--v1); }
+.opt-text { font-size:.88rem; color:var(--t2); line-height:1.5; transition:color .25s; position:relative; z-index:1; padding-top:4px; }
+.opt-btn:hover .opt-text { color:var(--t1); }
+.opt-btn.selected { border-color:var(--v1); background:rgba(91,61,232,.04); }
+.opt-btn.selected .opt-letter { background:var(--v1); border-color:transparent; color:#fff; border-radius:8px; }
+.opt-btn.selected .opt-text { color:var(--t1); font-weight:500; }
+
+.quiz-nav { display:flex; justify-content:space-between; align-items:center; }
+.btn-back2 {
+  display:inline-flex; align-items:center; gap:6px;
+  padding:9px 18px; border-radius:8px;
+  font-family:var(--fb); font-size:.84rem; font-weight:500;
+  cursor:pointer; transition:var(--tr);
+  background:transparent; color:var(--t3); border:1.5px solid var(--bd);
+}
+.btn-back2:hover { background:var(--bg3); color:var(--t1); }
+.btn-back2:disabled { opacity:.3; cursor:not-allowed; }
+.btn-next2 {
+  display:inline-flex; align-items:center; gap:6px;
+  padding:9px 20px; border-radius:8px;
+  font-family:var(--fb); font-size:.84rem; font-weight:600;
+  cursor:pointer; transition:var(--tr);
+  background:var(--t1); color:#fff; border:none;
+}
+.btn-next2:hover { background:var(--v1); transform:translateY(-1px); box-shadow:0 6px 18px rgba(91,61,232,.3); }
+.btn-next2:disabled { opacity:.35; cursor:not-allowed; transform:none; box-shadow:none; }
+
+/* Result */
+.modal-result { padding:32px 36px; }
+.res-hero { text-align:center; margin-bottom:24px; }
+.res-emoji { font-size:3rem; display:block; margin-bottom:8px; }
+.res-code {
+  font-family:var(--fd); font-size:clamp(2.8rem,9vw,5rem);
+  font-weight:700; line-height:1; display:block;
+  font-optical-sizing:auto;
+}
+.res-name  { font-family:var(--fd); font-size:1.25rem; font-weight:600; color:var(--t2); margin-top:6px; }
+.res-tag2  { font-size:.86rem; color:var(--t3); font-style:italic; margin-top:4px; }
+
+.res-desc-box, .dim-bars, .tag-box, .career-box {
+  background:var(--bg); border:1px solid var(--bd);
+  border-radius:var(--r2); padding:20px; margin-bottom:14px;
+}
+.res-desc-box h4, .dim-bars h4, .tag-box h4, .career-box h4 {
+  font-family:var(--fb); font-size:.68rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:.15em; color:var(--t3); margin-bottom:10px;
+  display:flex; align-items:center; gap:6px;
+}
+.res-desc-box p { font-size:.87rem; color:var(--t2); line-height:1.7; }
+
+.dim-bars h4 { margin-bottom:16px; }
+.db-item { margin-bottom:14px; }
+.db-labels { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; }
+.db-l, .db-r { font-family:var(--fb); font-size:.77rem; font-weight:600; }
+.db-l { color:var(--t1); } .db-r { color:var(--t3); }
+.db-l.act, .db-r.act { color:var(--v1); font-weight:700; }
+.db-pct { font-size:.69rem; color:var(--t3); font-weight:600; }
+.db-track { height:5px; background:var(--bg3); border-radius:10px; overflow:hidden; }
+.db-fill { height:100%; border-radius:10px; transition:width 1s cubic-bezier(.4,0,.2,1) .4s; width:0%; }
+.fill-ei { background:linear-gradient(90deg,#5b3de8,#8b6ef5); }
+.fill-sn { background:linear-gradient(90deg,#0891b2,#38bdf8); }
+.fill-tf { background:linear-gradient(90deg,#d4488a,#f472b6); }
+.fill-jp { background:linear-gradient(90deg,#d97706,#fbbf24); }
+
+.tag-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px; }
+.tag-list2 { display:flex; flex-wrap:wrap; gap:6px; }
+.tag2 { padding:4px 10px; border-radius:6px; font-size:.73rem; font-weight:600; border:1px solid; font-family:var(--fb); }
+.tag-s { background:rgba(8,145,178,.08);  color:#0369a1; border-color:rgba(8,145,178,.2);  }
+.tag-w { background:rgba(212,72,138,.08); color:#be185d; border-color:rgba(212,72,138,.2); }
+.tag-c { background:rgba(91,61,232,.08);  color:#4f46e5; border-color:rgba(91,61,232,.2);  }
+
+.famous-box { font-size:.81rem; color:var(--t3); padding-top:12px; border-top:1px solid var(--bd); margin-top:12px; }
+.famous-box strong { color:var(--t2); }
+
+.res-actions { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
+.btn-redo {
+  display:inline-flex; align-items:center; gap:6px;
+  padding:11px 22px; background:var(--t1); color:#fff;
+  border:none; border-radius:8px;
+  font-family:var(--fb); font-size:.84rem; font-weight:600;
+  cursor:pointer; transition:var(--tr);
+}
+.btn-redo:hover { background:var(--v1); box-shadow:0 6px 18px rgba(91,61,232,.3); }
+.btn-copy2 {
+  display:inline-flex; align-items:center; gap:6px;
+  padding:11px 18px; background:transparent; color:var(--t2);
+  border:1.5px solid var(--bd); border-radius:8px;
+  font-family:var(--fb); font-size:.84rem; font-weight:500;
+  cursor:pointer; transition:var(--tr);
+}
+.btn-copy2:hover { border-color:var(--v1); color:var(--v1); }
+
+/* ======================================================
+   SEARCH
+====================================================== */
+.search-wrap { position:relative; max-width:580px; margin:0 auto 28px; }
+.search-input {
+  width:100%; padding:13px 48px 13px 18px;
+  background:var(--bg2); border:1.5px solid var(--bd);
+  border-radius:10px; font-family:var(--fb); font-size:.92rem;
+  color:var(--t1); outline:none; transition:var(--tr);
+  box-shadow:var(--sh);
+}
+.search-input:focus { border-color:var(--v1); box-shadow:0 0 0 3px rgba(91,61,232,.1); }
+.search-input::placeholder { color:var(--t3); }
+.search-icon { position:absolute; right:16px; top:50%; transform:translateY(-50%); color:var(--t3); font-size:1rem; pointer-events:none; }
+.search-suggestions {
+  position:absolute; top:calc(100% + 6px); left:0; right:0;
+  background:var(--bg2); border:1px solid var(--bd);
+  border-radius:var(--r2); z-index:300; overflow:hidden;
+  animation:slideDown .2s ease; display:none; box-shadow:var(--sh2);
+}
+.sug-item { padding:11px 16px; cursor:pointer; transition:var(--tr); display:flex; align-items:center; gap:9px; font-size:.87rem; color:var(--t2); }
+.sug-item:hover { background:var(--bg3); color:var(--t1); }
+.sug-item i { color:var(--v1); width:15px; text-align:center; }
+
+/* ======================================================
+   GENERIC CARDS
+====================================================== */
+.card {
+  background:var(--bg2); border:1px solid var(--bd);
+  border-radius:var(--r2); padding:20px; transition:var(--tr);
+  box-shadow:var(--sh);
+}
+.card:hover { border-color:var(--bda); box-shadow:var(--sh2); transform:translateY(-2px); }
+.card-grid    { display:grid; gap:14px; margin-top:20px; }
+.card-grid-2  { grid-template-columns:repeat(2,1fr); }
+.card-grid-3  { grid-template-columns:repeat(3,1fr); }
+
+.badge-chip { display:inline-flex; align-items:center; gap:4px; padding:3px 9px; border-radius:6px; font-size:.69rem; font-weight:600; border:1px solid; font-family:var(--fb); }
+.chip-blue   { background:rgba(8,145,178,.08);  color:#0369a1; border-color:rgba(8,145,178,.2);  }
+.chip-purple { background:rgba(91,61,232,.08);  color:#4f46e5; border-color:rgba(91,61,232,.2);  }
+.chip-pink   { background:rgba(212,72,138,.08); color:#be185d; border-color:rgba(212,72,138,.2); }
+.chip-green  { background:rgba(5,150,105,.08);  color:#047857; border-color:rgba(5,150,105,.2);  }
+.chip-amber  { background:rgba(217,119,6,.08);  color:#b45309; border-color:rgba(217,119,6,.2);  }
+.chip-red    { background:rgba(220,38,38,.08);  color:#b91c1c; border-color:rgba(220,38,38,.2);  }
+
+/* ======================================================
+   UNIVERSITIES
+====================================================== */
+.uni-filter-row { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-bottom:24px; }
+.filter-btn {
+  padding:6px 15px; border-radius:8px; font-size:.77rem; font-weight:600;
+  cursor:pointer; border:1.5px solid var(--bd);
+  background:var(--bg2); color:var(--t2); transition:var(--tr);
+  font-family:var(--fb);
+}
+.filter-btn:hover, .filter-btn.active { background:var(--t1); color:#fff; border-color:transparent; }
+
+.uni-card { background:var(--bg2); border:1px solid var(--bd); border-radius:var(--r2); overflow:hidden; transition:var(--tr); cursor:pointer; box-shadow:var(--sh); }
+.uni-card:hover { border-color:var(--bda); box-shadow:var(--sh2); transform:translateY(-3px); }
+.uni-card-img { width:100%; height:130px; object-fit:cover; display:block; }
+.uni-card-img-placeholder { width:100%; height:130px; display:flex; align-items:center; justify-content:center; font-size:2.5rem; background:var(--bg3); }
+.uni-card-body { padding:16px; }
+.uni-name  { font-family:var(--fd); font-size:.92rem; font-weight:700; color:var(--t1); margin-bottom:4px; line-height:1.3; font-optical-sizing:auto; }
+.uni-short { font-size:.76rem; color:var(--v1); font-weight:700; margin-bottom:7px; font-family:var(--fb); }
+.uni-meta  { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:8px; }
+.uni-stat-row { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px; padding-top:10px; border-top:1px solid var(--bd); }
+.uni-stat   { text-align:center; }
+.uni-stat-n { font-family:var(--fd); font-size:.95rem; font-weight:700; color:var(--t1); font-optical-sizing:auto; }
+.uni-stat-l { font-size:.66rem; color:var(--t3); text-transform:uppercase; letter-spacing:.07em; font-family:var(--fb); }
+.results-count { text-align:center; color:var(--t3); font-size:.8rem; margin-bottom:14px; font-family:var(--fb); }
+
+/* ======================================================
+   MAJORS
+====================================================== */
+.combo-tags { display:flex; flex-wrap:wrap; gap:7px; justify-content:center; margin-bottom:24px; }
+.combo-tag {
+  padding:6px 13px; border-radius:8px; font-size:.76rem; font-weight:600;
+  background:var(--bg2); border:1.5px solid var(--bd);
+  color:var(--t2); cursor:pointer; transition:var(--tr);
+  font-family:var(--fb); box-shadow:var(--sh);
+}
+.combo-tag:hover { border-color:var(--v1); color:var(--v1); }
+.combo-tag.active { background:var(--t1); color:#fff; border-color:transparent; }
+
+.major-result-card { background:var(--bg2); border:1px solid var(--bd); border-radius:var(--r2); padding:18px; margin-bottom:10px; transition:var(--tr); box-shadow:var(--sh); }
+.major-result-card:hover { border-color:var(--bda); transform:translateX(3px); box-shadow:var(--sh2); }
+.major-name  { font-family:var(--fd); font-size:.97rem; font-weight:700; color:var(--t1); margin-bottom:5px; font-optical-sizing:auto; }
+.major-desc  { font-size:.83rem; color:var(--t2); margin-bottom:9px; line-height:1.6; }
+.major-combos { display:flex; flex-wrap:wrap; gap:5px; }
+
+/* ======================================================
+   ADMISSIONS
+====================================================== */
+.adm-tabs { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:28px; padding-bottom:16px; border-bottom:1px solid var(--bd); }
+.adm-tab {
+  padding:8px 16px; border-radius:8px; font-size:.81rem; font-weight:600;
+  cursor:pointer; border:1.5px solid var(--bd);
+  background:var(--bg2); color:var(--t2); transition:var(--tr);
+  display:flex; align-items:center; gap:6px; font-family:var(--fb);
+  box-shadow:var(--sh);
+}
+.adm-tab:hover { border-color:var(--bda); color:var(--t1); }
+.adm-tab.active { background:var(--t1); color:#fff; border-color:transparent; }
+.adm-panel { display:none; }
+.adm-panel.active { display:block; animation:slideDown .3s ease; }
+
+.adm-method-card { background:var(--bg2); border:1px solid var(--bd); border-radius:var(--r2); padding:22px; margin-bottom:14px; position:relative; overflow:hidden; box-shadow:var(--sh); }
+.adm-method-card::before { content:''; position:absolute; top:0; left:0; width:4px; height:100%; }
+.adm-m1::before { background:linear-gradient(180deg,var(--v1),var(--v2)); }
+.adm-m2::before { background:linear-gradient(180deg,var(--v3),var(--v5)); }
+.adm-m3::before { background:linear-gradient(180deg,var(--v4),var(--v2)); }
+.adm-m4::before { background:linear-gradient(180deg,var(--v5),var(--v3)); }
+.adm-method-card h3 { font-family:var(--fd); font-size:.97rem; font-weight:700; color:var(--t1); margin-bottom:6px; display:flex; align-items:center; gap:8px; font-optical-sizing:auto; }
+.adm-method-card p  { font-size:.84rem; color:var(--t2); line-height:1.65; margin-bottom:10px; }
+.adm-detail-list { list-style:none; }
+.adm-detail-list li { padding:5px 0; font-size:.82rem; color:var(--t2); display:flex; align-items:flex-start; gap:7px; border-bottom:1px solid var(--bd); }
+.adm-detail-list li:last-child { border:none; }
+.adm-detail-list li::before { content:'▸'; color:var(--v1); font-size:.68rem; margin-top:5px; flex-shrink:0; }
+
+.timeline { position:relative; padding-left:26px; margin-top:14px; }
+.timeline::before { content:''; position:absolute; left:8px; top:6px; bottom:6px; width:2px; background:linear-gradient(180deg,var(--v1),var(--v2)); opacity:.3; }
+.tl-item { position:relative; margin-bottom:20px; padding-left:6px; }
+.tl-dot { position:absolute; left:-22px; top:4px; width:13px; height:13px; border-radius:50%; background:var(--v1); border:2px solid var(--bg2); box-shadow:0 0 0 3px rgba(91,61,232,.15); }
+.tl-date  { font-family:var(--fb); font-size:.72rem; font-weight:700; color:var(--v1); margin-bottom:3px; text-transform:uppercase; letter-spacing:.08em; }
+.tl-title { font-size:.88rem; font-weight:600; color:var(--t1); margin-bottom:3px; }
+.tl-desc  { font-size:.79rem; color:var(--t2); line-height:1.55; }
+
+/* ======================================================
+   CERTIFICATES
+====================================================== */
+.cert-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+.cert-card { background:var(--bg2); border:1px solid var(--bd); border-radius:var(--r2); padding:22px; transition:var(--tr); box-shadow:var(--sh); }
+.cert-card:hover { border-color:var(--bda); transform:translateY(-2px); box-shadow:var(--sh2); }
+.cert-icon { font-size:2rem; margin-bottom:10px; }
+.cert-name { font-family:var(--fd); font-size:.97rem; font-weight:700; color:var(--t1); margin-bottom:3px; font-optical-sizing:auto; }
+.cert-full { font-size:.76rem; color:var(--t3); margin-bottom:10px; }
+.cert-table { width:100%; border-collapse:collapse; margin-top:10px; }
+.cert-table th, .cert-table td { padding:7px 9px; text-align:left; border-bottom:1px solid var(--bd); font-size:.78rem; }
+.cert-table th { color:var(--t3); font-weight:700; text-transform:uppercase; letter-spacing:.06em; font-family:var(--fb); }
+.cert-table td { color:var(--t2); }
+.cert-table tr:last-child td { border:none; }
+
+/* ======================================================
+   EXAMS
+====================================================== */
+.exam-card { background:var(--bg2); border:1px solid var(--bd); border-radius:var(--r2); padding:22px; margin-bottom:14px; box-shadow:var(--sh); }
+.exam-title { font-family:var(--fd); font-size:1rem; font-weight:700; color:var(--t1); margin-bottom:5px; display:flex; align-items:center; gap:9px; font-optical-sizing:auto; }
+.exam-org   { font-size:.76rem; color:var(--t3); margin-bottom:10px; font-family:var(--fb); }
+.exam-info-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:12px; }
+.exam-info-item { background:var(--bg3); border-radius:var(--r1); padding:11px; text-align:center; }
+.exam-info-n    { font-family:var(--fd); font-size:.82rem; font-weight:700; color:var(--t1); font-optical-sizing:auto; }
+.exam-info-l    { font-size:.66rem; color:var(--t3); margin-top:2px; text-transform:uppercase; letter-spacing:.06em; font-family:var(--fb); }
+.exam-steps { list-style:none; counter-reset:step; }
+.exam-steps li { counter-increment:step; display:flex; align-items:flex-start; gap:11px; padding:7px 0; border-bottom:1px solid var(--bd); font-size:.82rem; color:var(--t2); }
+.exam-steps li:last-child { border:none; }
+.exam-steps li::before {
+  content:counter(step); width:21px; height:21px; min-width:21px;
+  background:var(--t1); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:.68rem; font-weight:700; color:#fff; margin-top:1px;
+  font-family:var(--fb);
+}
+
+/* ======================================================
+   MBTI ABOUT
+====================================================== */
+.mbti-dim-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-bottom:36px; }
+.mbti-dim-card { background:var(--bg2); border:1px solid var(--bd); border-radius:var(--r2); padding:22px; transition:var(--tr); position:relative; overflow:hidden; box-shadow:var(--sh); }
+.mbti-dim-card:hover { transform:translateY(-3px); border-color:var(--bda); box-shadow:var(--sh2); }
+.mbti-dim-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
+.mdc1::before { background:linear-gradient(90deg,#5b3de8,#8b6ef5); }
+.mdc2::before { background:linear-gradient(90deg,#0891b2,#38bdf8); }
+.mdc3::before { background:linear-gradient(90deg,#d4488a,#f472b6); }
+.mdc4::before { background:linear-gradient(90deg,#d97706,#fbbf24); }
+.dim-letters { font-family:var(--fd); font-size:1.25rem; font-weight:700; margin-bottom:7px; display:flex; align-items:center; gap:7px; font-optical-sizing:auto; }
+.vs-txt { font-size:.56rem; color:var(--t3); font-weight:600; letter-spacing:.15em; text-transform:uppercase; }
+
+.types-all-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:9px; margin-top:20px; }
+.type-card-sm {
+  background:var(--bg2); border:1px solid var(--bd);
+  border-radius:var(--r1); padding:13px 10px;
+  text-align:center; cursor:pointer; transition:var(--tr);
+  box-shadow:var(--sh);
+}
+.type-card-sm:hover { border-color:var(--bda); transform:translateY(-2px); box-shadow:var(--sh2); }
+.type-code {
+  font-family:var(--fd); font-size:.95rem; font-weight:700;
+  background:linear-gradient(135deg,var(--v1),var(--v2));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  font-optical-sizing:auto;
+}
+.type-name-sm  { font-size:.68rem; color:var(--t3); margin-top:3px; font-family:var(--fb); }
+.type-emoji-sm { font-size:1.2rem; display:block; margin-bottom:4px; }
+
+/* ======================================================
+   CONFETTI
+====================================================== */
+.conf { position:fixed; pointer-events:none; z-index:9999; border-radius:2px; animation:confetti 3s ease-in forwards; }
+
+/* ======================================================
+   RESPONSIVE
+====================================================== */
+@media(max-width:900px){
+  .feature-grid { grid-template-columns:repeat(2,1fr); }
+  .types-all-grid { grid-template-columns:repeat(3,1fr); }
+  .cert-grid { grid-template-columns:1fr; }
+}
+@media(max-width:768px){
+  .navbar { padding:0 18px; }
+  .nav-links { display:none; flex-direction:column; position:fixed; top:62px; left:0; right:0; background:rgba(245,244,240,.97); backdrop-filter:blur(20px); border-bottom:1px solid var(--bd); padding:10px; gap:3px; z-index:499; }
+  .nav-links.open { display:flex; }
+  .hamburger { display:flex; }
+  .hero-stats { gap:18px; }
+  .hero-stats .stat + .stat { padding-left:18px; }
+  .feature-grid { grid-template-columns:1fr 1fr; }
+  .card-grid-2, .card-grid-3 { grid-template-columns:1fr; }
+  .mbti-dim-grid { grid-template-columns:1fr; }
+  .types-all-grid { grid-template-columns:repeat(2,1fr); }
+  .tag-grid { grid-template-columns:1fr; }
+  .exam-info-grid { grid-template-columns:1fr; }
+  .modal-quiz-wrap, .modal-result { padding:20px 16px; }
+  .adm-tabs { gap:5px; }
+}
+@media(max-width:480px){
+  .hero-cta { flex-direction:column; align-items:center; }
+  .btn-primary, .btn-ghost { width:100%; justify-content:center; }
+  .feature-grid { grid-template-columns:1fr; }
+  .types-all-grid { grid-template-columns:repeat(2,1fr); }
+}
+
+</style>
+
+  <!-- ======================================================
+       FIREBASE ANALYTICS
+       Firebase Hosting + GitHub Pages compatible
+       Uses compat SDK (no bundler required)
+  ====================================================== -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics-compat.js"></script>
+  <script>
+    // ── Firebase Configuration ──────────────────────────────
+    const firebaseConfig = {
+      apiKey:            "AIzaSyD3QAkY6gqCoVtPhpwLpYCtAv68gaC-DSQ",
+      authDomain:        "mbti-7c59a.firebaseapp.com",
+      projectId:         "mbti-7c59a",
+      storageBucket:     "mbti-7c59a.firebasestorage.app",
+      messagingSenderId: "151285870504",
+      appId:             "1:151285870504:web:5991e41beccd60bd4bf79d",
+      measurementId:     "G-6E3QBDN6FT"
+    };
+
+    // ── Initialize Firebase ─────────────────────────────────
+    firebase.initializeApp(firebaseConfig);
+    const analytics = firebase.analytics();
+
+    // ── Custom Analytics Helpers ────────────────────────────
+    // Track page views when user navigates between sections
+    function trackPage(pageName) {
+      try {
+        analytics.logEvent('page_view', { page_title: pageName, page_location: window.location.href });
+      } catch(e) {}
+    }
+
+    // Track MBTI quiz completion with result type
+    function trackMBTI(type) {
+      try {
+        analytics.logEvent('mbti_completed', { mbti_type: type });
+      } catch(e) {}
+    }
+
+    // Track university search
+    function trackUniSearch(query) {
+      try {
+        analytics.logEvent('search', { search_term: query, section: 'universities' });
+      } catch(e) {}
+    }
+
+    // Track combo search
+    function trackComboSearch(combo) {
+      try {
+        analytics.logEvent('search', { search_term: combo, section: 'majors' });
+      } catch(e) {}
+    }
+
+    console.log('🔥 Firebase Analytics initialized — Project: mbti-7c59a');
+  </script>
+</head>
+<body>
+
+<!-- ORBS -->
+<div class="orbs"><div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div></div>
+
+<!-- TOAST -->
+<div class="toast hidden" id="toast"><i class="fa-solid fa-check-circle" style="color:var(--v5)"></i><span id="toastMsg">Đã sao chép!</span></div>
+
+<!-- QUIZ MODAL -->
+<div class="modal-overlay hidden" id="quizModal">
+  <div class="modal" id="quizModalInner">
+    <button class="modal-close" onclick="closeQuizModal()"><i class="fa-solid fa-xmark"></i></button>
+    <!-- quiz-content injected by JS -->
+    <div id="quizContent"></div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a class="logo" onclick="goTo('home')">
+    <div class="logo-icon"><i class="fa-solid fa-compass"></i></div>
+    <span>HướngNghiệp THPT</span>
+  </a>
+  <div class="nav-links" id="navLinks">
+    <button class="nav-link" onclick="goTo('home');closeNav()"><i class="fa-solid fa-house"></i> Trang Chủ</button>
+    <button class="nav-link" onclick="goTo('mbti-about');closeNav()"><i class="fa-solid fa-brain"></i> MBTI</button>
+    <button class="nav-link" onclick="goTo('universities');closeNav()"><i class="fa-solid fa-university"></i> Trường ĐH</button>
+    <button class="nav-link" onclick="goTo('majors');closeNav()"><i class="fa-solid fa-graduation-cap"></i> Ngành Học</button>
+    <button class="nav-link" onclick="goTo('admissions');closeNav()"><i class="fa-solid fa-file-alt"></i> Xét Tuyển</button>
+    <button class="nav-link" onclick="goTo('certs');closeNav()"><i class="fa-solid fa-certificate"></i> Chứng Chỉ</button>
+    <button class="nav-link" onclick="goTo('exams');closeNav()"><i class="fa-solid fa-pen-nib"></i> Kỳ Thi</button>
+  </div>
+  <div style="display:flex;gap:10px;align-items:center">
+    <button class="nav-cta" onclick="openQuizModal()"><i class="fa-solid fa-bolt"></i> Làm Bài MBTI</button>
+    <button class="hamburger" id="hamburger" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ==================== HOME ==================== -->
+<section class="section active" id="home">
+<div class="hero-inner">
+  <div class="hero-badge"><div class="badge-dot"></div> Cổng Thông Tin Hướng Nghiệp THPT 2025</div>
+  <h1 class="hero-title">
+    <span class="l1">Khám phá bản thân</span>
+    <span class="l2">Định hướng tương lai</span>
+  </h1>
+  <p class="hero-desc">Trắc nghiệm MBTI · Tìm trường ĐH/CĐ · Tra cứu ngành học · Hướng dẫn xét tuyển · Chứng chỉ quốc tế — Tất cả trong một nơi, hoàn toàn miễn phí.</p>
+  <div class="hero-cta">
+    <button class="btn-primary" onclick="openQuizModal()"><i class="fa-solid fa-bolt"></i> Làm Bài Test MBTI</button>
+    <button class="btn-ghost" onclick="goTo('universities')"><i class="fa-solid fa-university"></i> Tìm Trường ĐH</button>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-n">354+</div><div class="stat-l">Trường ĐH/CĐ</div></div>
+    <div class="stat"><div class="stat-n">500+</div><div class="stat-l">Ngành Học</div></div>
+    <div class="stat"><div class="stat-n">6</div><div class="stat-l">PT Xét Tuyển</div></div>
+    <div class="stat"><div class="stat-n">16</div><div class="stat-l">Nhóm Tính Cách</div></div>
+  </div>
+
+  <!-- BANNER IMAGE -->
+  <!-- ANNOUNCEMENT BANNER (no image dependency) -->
+  <div style="max-width:820px;width:100%;margin-top:56px;animation:floatUp 1s ease .6s both">
+    <!-- Photo strip with 3 real Unsplash images side by side -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px;border-radius:var(--r2);overflow:hidden;box-shadow:var(--sh2)">
+      <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=320&h=160&fit=crop&q=80"
+           alt="Sinh viên học tập" style="width:100%;height:160px;object-fit:cover;display:block"
+           onerror="this.parentNode.style.display='none'"/>
+      <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=320&h=160&fit=crop&q=80"
+           alt="Khuôn viên đại học" style="width:100%;height:160px;object-fit:cover;display:block"
+           onerror="this.style.display='none'"/>
+      <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=320&h=160&fit=crop&q=80"
+           alt="Giảng đường" style="width:100%;height:160px;object-fit:cover;display:block"
+           onerror="this.style.display='none'"/>
+    </div>
+    <!-- Announcement card -->
+    <div style="background:linear-gradient(135deg,var(--v1),var(--v2));border-radius:var(--r2);padding:24px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;box-shadow:0 8px 32px rgba(91,61,232,.25)">
+      <div>
+        <div style="font-family:var(--fb);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:rgba(255,255,255,.7);margin-bottom:6px">📢 Thông báo quan trọng</div>
+        <div style="font-family:var(--fd);font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:4px">Mùa Tuyển Sinh 2025 Đã Đến</div>
+        <div style="font-size:.84rem;color:rgba(255,255,255,.85);max-width:400px">Cập nhật điểm chuẩn, học phí và phương thức xét tuyển mới nhất từ các trường hàng đầu.</div>
+      </div>
+      <button onclick="goTo('universities')" style="padding:11px 22px;background:#fff;color:var(--v1);border:none;border-radius:8px;font-family:var(--fb);font-size:.84rem;font-weight:700;cursor:pointer;transition:var(--tr);white-space:nowrap;flex-shrink:0" onmouseover="this.style.background='var(--bg3)'" onmouseout="this.style.background='#fff'">
+        Xem Ngay →
+      </button>
+    </div>
+  </div>
+
+  <!-- FEATURE CARDS -->
+  <div class="feature-grid">
+    <div class="feat-card" onclick="openQuizModal()">
+      <span class="feat-icon">🧠</span>
+      <div class="feat-title">Trắc Nghiệm MBTI</div>
+      <div class="feat-desc">20 câu hỏi · Kết quả tức thì · 16 kiểu tính cách</div>
+    </div>
+    <div class="feat-card" onclick="goTo('universities')">
+      <span class="feat-icon">🏛️</span>
+      <div class="feat-title">Tìm Trường Phù Hợp</div>
+      <div class="feat-desc">354+ trường ĐH/CĐ · Điểm chuẩn · Học phí</div>
+    </div>
+    <div class="feat-card" onclick="goTo('majors')">
+      <span class="feat-icon">📚</span>
+      <div class="feat-title">Khám Phá Ngành Học</div>
+      <div class="feat-desc">Nhập tổ hợp môn → Gợi ý ngành phù hợp</div>
+    </div>
+    <div class="feat-card" onclick="goTo('admissions')">
+      <span class="feat-icon">📋</span>
+      <div class="feat-title">Hình Thức Xét Tuyển</div>
+      <div class="feat-desc">Học bạ · THPTQG · ĐGNL · Kết hợp 2025</div>
+    </div>
+    <div class="feat-card" onclick="goTo('certs')">
+      <span class="feat-icon">🌐</span>
+      <div class="feat-title">Chứng Chỉ Quốc Tế</div>
+      <div class="feat-desc">IELTS · TOEFL · SAT · ACT · A-Level</div>
+    </div>
+    <div class="feat-card" onclick="goTo('exams')">
+      <span class="feat-icon">✏️</span>
+      <div class="feat-title">Kỳ Thi Đánh Giá</div>
+      <div class="feat-desc">ĐGNL ĐHQG HN · TP.HCM · V-SAT · ĐGTD</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ==================== MBTI ABOUT ==================== -->
+<section class="section" id="mbti-about">
+<div class="page-center">
+  <div class="sec-head">
+    <div class="sec-label"><i class="fa-solid fa-brain"></i> Trắc Nghiệm Tính Cách</div>
+    <h2 class="sec-title">MBTI Là Gì?</h2>
+    <p class="sec-sub">Myers-Briggs Type Indicator — công cụ trắc nghiệm tính cách phổ biến nhất thế giới với hơn 2 triệu người làm mỗi năm.</p>
+  </div>
+
+  <div style="text-align:center;margin-bottom:36px">
+    <button class="btn-primary" onclick="openQuizModal()"><i class="fa-solid fa-bolt"></i> Làm Bài Test Ngay (20 câu)</button>
+  </div>
+
+  <div class="mbti-dim-grid">
+    <div class="mbti-dim-card mdc1">
+      <div class="dim-letters"><span style="color:#a78bfa">E</span><span class="vs-txt">vs</span><span style="color:#7c3aed">I</span></div>
+      <strong style="color:#c4b5fd;font-size:.85rem">Hướng ngoại vs Hướng nội</strong>
+      <p style="font-size:.82rem;color:var(--t2);margin-top:8px;line-height:1.6">
+        <b style="color:#a78bfa">E (Extraversion):</b> Nạp năng lượng từ giao tiếp xã hội, thích làm việc nhóm, nói chuyện cởi mở.<br>
+        <b style="color:#7c3aed">I (Introversion):</b> Nạp năng lượng từ thời gian một mình, suy nghĩ sâu trước khi nói.
+      </p>
+    </div>
+    <div class="mbti-dim-card mdc2">
+      <div class="dim-letters"><span style="color:#67e8f9">S</span><span class="vs-txt">vs</span><span style="color:#0891b2">N</span></div>
+      <strong style="color:#67e8f9;font-size:.85rem">Thực tế vs Trực giác</strong>
+      <p style="font-size:.82rem;color:var(--t2);margin-top:8px;line-height:1.6">
+        <b style="color:#67e8f9">S (Sensing):</b> Tin vào thực tế, dữ liệu cụ thể, kinh nghiệm đã được chứng minh.<br>
+        <b style="color:#0891b2">N (iNtuition):</b> Tìm kiếm ý nghĩa ẩn, mẫu hình tổng thể, xu hướng tương lai.
+      </p>
+    </div>
+    <div class="mbti-dim-card mdc3">
+      <div class="dim-letters"><span style="color:#f9a8d4">T</span><span class="vs-txt">vs</span><span style="color:#db2777">F</span></div>
+      <strong style="color:#f9a8d4;font-size:.85rem">Lý trí vs Cảm xúc</strong>
+      <p style="font-size:.82rem;color:var(--t2);margin-top:8px;line-height:1.6">
+        <b style="color:#f9a8d4">T (Thinking):</b> Quyết định dựa trên logic, phân tích khách quan, nguyên tắc nhất quán.<br>
+        <b style="color:#db2777">F (Feeling):</b> Quyết định dựa trên cảm xúc, tác động đến người khác, giá trị nhân văn.
+      </p>
+    </div>
+    <div class="mbti-dim-card mdc4">
+      <div class="dim-letters"><span style="color:#fcd34d">J</span><span class="vs-txt">vs</span><span style="color:#d97706">P</span></div>
+      <strong style="color:#fcd34d;font-size:.85rem">Ngăn nắp vs Linh hoạt</strong>
+      <p style="font-size:.82rem;color:var(--t2);margin-top:8px;line-height:1.6">
+        <b style="color:#fcd34d">J (Judging):</b> Thích kế hoạch rõ ràng, lịch trình cố định, quyết định sớm.<br>
+        <b style="color:#d97706">P (Perceiving):</b> Thích linh hoạt, mở ngỏ, thích ứng theo tình huống thực tế.
+      </p>
+    </div>
+  </div>
+
+  <div class="sec-head" style="margin-bottom:20px"><h3 style="font-family:var(--fd);font-size:1.3rem;font-weight:700">16 Kiểu Tính Cách MBTI</h3></div>
+  <div class="types-all-grid" id="typesAllGrid"></div>
+</div>
+</section>
+
+<!-- ==================== UNIVERSITIES ==================== -->
+<section class="section" id="universities">
+<div class="page-center">
+  <div class="sec-head">
+    <div class="sec-label"><i class="fa-solid fa-university"></i> Cơ Sở Giáo Dục</div>
+    <h2 class="sec-title">Trường Đại Học & Cao Đẳng</h2>
+    <p class="sec-sub">Tra cứu thông tin điểm chuẩn, học phí và ngành đào tạo của các trường trên toàn quốc.</p>
+  </div>
+
+  <!-- Search by major -->
+  <div style="background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:22px;margin-bottom:24px">
+    <p style="font-size:.82rem;color:var(--t3);margin-bottom:10px;text-transform:uppercase;letter-spacing:.08em;font-weight:700"><i class="fa-solid fa-magnifying-glass" style="color:var(--v1)"></i> Tìm trường theo ngành muốn học</p>
+    <div class="search-wrap" style="margin-bottom:0">
+      <input class="search-input" id="uniByMajorInput" placeholder="Nhập ngành: Công nghệ thông tin, Y khoa, Luật..." oninput="filterUniByMajor(this.value)"/>
+      <i class="fa-solid fa-search search-icon"></i>
+    </div>
+    <div id="uniByMajorResult" style="margin-top:16px"></div>
+  </div>
+
+  <!-- Score range filter -->
+  <div style="background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:20px;margin-bottom:20px">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <span style="font-size:.78rem;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.08em;white-space:nowrap"><i class="fa-solid fa-sliders" style="color:var(--v4)"></i> Lọc điểm chuẩn:</span>
+      <div style="display:flex;align-items:center;gap:8px;flex:1;min-width:220px">
+        <input type="range" id="scoreMin" min="15" max="30" value="15" step="0.5" oninput="applyScoreFilter()" style="flex:1;accent-color:var(--v1)"/>
+        <span id="scoreMinLabel" style="font-family:var(--fd);font-size:.85rem;font-weight:700;color:var(--v1);min-width:28px">15</span>
+        <span style="color:var(--t3);font-size:.8rem">–</span>
+        <input type="range" id="scoreMax" min="15" max="30" value="30" step="0.5" oninput="applyScoreFilter()" style="flex:1;accent-color:var(--v2)"/>
+        <span id="scoreMaxLabel" style="font-family:var(--fd);font-size:.85rem;font-weight:700;color:var(--v2);min-width:28px">30</span>
+      </div>
+      <button onclick="resetScoreFilter()" style="padding:5px 12px;border-radius:20px;font-size:.75rem;font-weight:600;background:transparent;border:1px solid var(--bd);color:var(--t3);cursor:pointer;transition:var(--tr)" onmouseover="this.style.color='var(--t1)'" onmouseout="this.style.color='var(--t3)'">
+        <i class="fa-solid fa-rotate-left"></i> Reset
+      </button>
+    </div>
+  </div>
+
+  <div class="uni-filter-row" id="uniFilterRow">
+    <button class="filter-btn active" onclick="filterUni('all',this)">Tất Cả</button>
+    <button class="filter-btn" onclick="filterUni('hn',this)">🏙️ Hà Nội</button>
+    <button class="filter-btn" onclick="filterUni('hcm',this)">🌆 TP.HCM</button>
+    <button class="filter-btn" onclick="filterUni('dn',this)">🌊 Đà Nẵng</button>
+    <button class="filter-btn" onclick="filterUni('other',this)">📍 Địa Phương</button>
+    <button class="filter-btn" onclick="filterUni('cong-lap',this)">🏛️ Công Lập</button>
+    <button class="filter-btn" onclick="filterUni('tu-thuc',this)">🏢 Tư Thục</button>
+  </div>
+
+  <!-- Compare bar -->
+  <div id="compareBar" style="display:none;position:sticky;bottom:16px;z-index:200;background:linear-gradient(135deg,var(--v1),var(--v2));border-radius:var(--r2);padding:14px 20px;margin-bottom:16px;box-shadow:0 8px 32px rgba(124,58,237,.5);display:flex;align-items:center;gap:12px;flex-wrap:wrap;animation:floatUp .3s ease">
+    <i class="fa-solid fa-scale-balanced" style="font-size:1.2rem;color:#fff"></i>
+    <span style="font-family:var(--fd);font-weight:700;color:#fff;font-size:.9rem">So sánh trường:</span>
+    <div id="compareNames" style="display:flex;gap:8px;flex-wrap:wrap;flex:1"></div>
+    <button onclick="doCompare()" style="padding:8px 18px;border-radius:50px;background:#fff;color:var(--v1);border:none;font-family:var(--fd);font-weight:700;font-size:.82rem;cursor:pointer">So Sánh Ngay</button>
+    <button onclick="clearCompare()" style="padding:8px 14px;border-radius:50px;background:rgba(255,255,255,.2);color:#fff;border:none;font-size:.8rem;cursor:pointer"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+
+  <!-- Compare Modal -->
+  <div class="modal-overlay hidden" id="compareModal">
+    <div class="modal" style="max-width:860px" id="compareModalInner">
+      <button class="modal-close" onclick="closeCompareModal()"><i class="fa-solid fa-xmark"></i></button>
+      <div style="padding:28px" id="compareContent"></div>
+    </div>
+  </div>
+
+  <div class="results-count" id="uniCount"></div>
+  <div class="card-grid card-grid-3" id="uniGrid"></div>
+</div>
+</section>
+
+<!-- ==================== MAJORS ==================== -->
+<section class="section" id="majors">
+<div class="page-center">
+  <div class="sec-head">
+    <div class="sec-label"><i class="fa-solid fa-graduation-cap"></i> Định Hướng Ngành Nghề</div>
+    <h2 class="sec-title">Nhập Tổ Hợp Môn → Tìm Ngành</h2>
+    <p class="sec-sub">Nhập tổ hợp xét tuyển của bạn để khám phá các ngành học phù hợp.</p>
+  </div>
+
+  <div class="search-wrap">
+    <input class="search-input" id="comboInput" placeholder="Nhập tổ hợp môn: A00, D01, B00..." oninput="searchByCombo(this.value)"/>
+    <i class="fa-solid fa-search search-icon"></i>
+  </div>
+
+  <div style="text-align:center;margin-bottom:24px">
+    <p style="font-size:.8rem;color:var(--t3);margin-bottom:14px">Hoặc chọn nhanh tổ hợp phổ biến:</p>
+    <div class="combo-tags" id="comboTagsRow"></div>
+  </div>
+
+  <div id="majorResults"></div>
+</div>
+</section>
+
+<!-- ==================== ADMISSIONS ==================== -->
+<section class="section" id="admissions">
+<div class="page-center">
+  <div class="sec-head">
+    <div class="sec-label"><i class="fa-solid fa-file-alt"></i> Tuyển Sinh 2025</div>
+    <h2 class="sec-title">Hình Thức Xét Tuyển</h2>
+    <p class="sec-sub">Thông tin cập nhật về các phương thức xét tuyển đại học, cao đẳng năm 2025.</p>
+  </div>
+
+  <div class="adm-tabs">
+    <button class="adm-tab active" onclick="showAdmTab('methods',this)"><i class="fa-solid fa-list-check"></i> Phương Thức</button>
+    <button class="adm-tab" onclick="showAdmTab('timeline',this)"><i class="fa-solid fa-calendar"></i> Lịch Tuyển Sinh</button>
+    <button class="adm-tab" onclick="showAdmTab('tips',this)"><i class="fa-solid fa-lightbulb"></i> Lưu Ý Quan Trọng</button>
+  </div>
+
+  <div class="adm-panel active" id="adm-methods">
+    <div class="adm-method-card adm-m1">
+      <h3><i class="fa-solid fa-book-open" style="color:var(--v1)"></i> 1. Xét Tuyển Học Bạ</h3>
+      <p>Dựa trên kết quả học tập THPT (thường lấy điểm TB 3–5 học kỳ). Nhiều trường xét học bạ có thêm điều kiện về điểm môn chính.</p>
+      <ul class="adm-detail-list">
+        <li>Điểm TB học bạ thường từ 6.0–8.0 tùy trường và ngành</li>
+        <li>Một số trường yêu cầu điểm riêng môn chính ≥ 7.0</li>
+        <li>Hồ sơ nộp trực tiếp hoặc online trên cổng trường</li>
+        <li>Xét đợt 1 từ tháng 3–5/2025, đợt 2 tháng 6–7/2025</li>
+        <li>Nguồn: Thông tư 08/2022/TT-BGDĐT và hướng dẫn tuyển sinh 2025 của Bộ GD&ĐT</li>
+      </ul>
+    </div>
+    <div class="adm-method-card adm-m2">
+      <h3><i class="fa-solid fa-pen-to-square" style="color:var(--v3)"></i> 2. Xét Kết Quả Thi THPT Quốc Gia</h3>
+      <p>Phương thức phổ biến nhất. Dùng kết quả kỳ thi tốt nghiệp THPT (tổ chức tháng 6–7/2025) để xét tuyển vào đại học.</p>
+      <ul class="adm-detail-list">
+        <li>Kỳ thi THPT 2025: dự kiến ngày 26–28/6/2025</li>
+        <li>Đăng ký xét tuyển qua hệ thống tuyển sinh chung: <b>thisinh.vnpf.edu.vn</b></li>
+        <li>Điểm xét = tổng điểm 3 môn trong tổ hợp + điểm ưu tiên</li>
+        <li>Có thể đăng ký tối đa 30 nguyện vọng theo thứ tự ưu tiên</li>
+        <li>Xét tuyển thống nhất: tháng 7–8/2025</li>
+      </ul>
+    </div>
+    <div class="adm-method-card adm-m3">
+      <h3><i class="fa-solid fa-chart-bar" style="color:var(--v4)"></i> 3. Xét Tuyển Kết Quả Đánh Giá Năng Lực (ĐGNL)</h3>
+      <p>Dùng điểm bài thi ĐGNL của ĐHQG Hà Nội hoặc ĐHQG TP.HCM. Ngày càng nhiều trường chấp nhận hình thức này.</p>
+      <ul class="adm-detail-list">
+        <li><b>ĐGNL ĐHQG HN (HSA):</b> 150 câu, 195 phút, tổng điểm 150. Tổ chức 8–10 đợt/năm</li>
+        <li><b>ĐGNL ĐHQG TP.HCM (APT):</b> 120 câu, 150 phút, tổng điểm 1200. Dự kiến tổ chức 2–3 đợt/2025</li>
+        <li>Hơn 100 trường đại học chấp nhận điểm ĐGNL năm 2025</li>
+        <li>Đăng ký: <b>thi.hust.edu.vn</b> (HN) và <b>vnuhcm.edu.vn</b> (HCM)</li>
+      </ul>
+    </div>
+    <div class="adm-method-card adm-m4">
+      <h3><i class="fa-solid fa-globe" style="color:var(--v5)"></i> 4. Xét Tuyển Chứng Chỉ Quốc Tế & Tuyển Thẳng</h3>
+      <p>Dành cho học sinh xuất sắc có chứng chỉ IELTS, SAT, ACT hoặc giải thưởng học sinh giỏi quốc gia/quốc tế.</p>
+      <ul class="adm-detail-list">
+        <li>IELTS ≥ 6.0–7.5 tùy trường: nhiều trường top xét thẳng vào một số ngành</li>
+        <li>SAT ≥ 1200–1400: FUV, RMIT, VinUniversity, ĐHQG HN chấp nhận</li>
+        <li>HS giỏi quốc gia: tuyển thẳng vào ĐH theo quy định Bộ GD&ĐT</li>
+        <li>Một số trường có kỳ thi riêng: VNU-EPE, BKAA (Bách Khoa), ĐHTM...</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="adm-panel" id="adm-timeline">
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Tháng 2–3/2025</div><div class="tl-title">Mở đăng ký xét học bạ đợt 1</div><div class="tl-desc">Nhiều trường bắt đầu nhận hồ sơ xét học bạ đợt 1. Thí sinh nộp online hoặc trực tiếp tại trường.</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Tháng 4–5/2025</div><div class="tl-title">Đăng ký dự thi ĐGNL & các bài thi năng lực</div><div class="tl-desc">ĐGNL ĐHQG HN và TP.HCM tổ chức các đợt thi. Thí sinh đăng ký trên cổng của từng trường.</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">26–28/6/2025</div><div class="tl-title">🎯 Kỳ Thi Tốt Nghiệp THPT 2025</div><div class="tl-desc">Kỳ thi chính thức toàn quốc. Dự kiến 3 ngày với các môn Toán, Văn, Anh và tổ hợp tự nhiên/xã hội.</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Tháng 7/2025</div><div class="tl-title">Công bố điểm thi & mở đăng ký xét tuyển</div><div class="tl-desc">Bộ GD&ĐT công bố điểm thi. Thí sinh đăng ký nguyện vọng trên hệ thống tuyển sinh chung.</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Tháng 8/2025</div><div class="tl-title">Xét tuyển & công bố kết quả đợt 1</div><div class="tl-desc">Hệ thống lọc và xét tuyển theo nguyện vọng. Thí sinh xác nhận nhập học trong 3–5 ngày.</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Tháng 9–10/2025</div><div class="tl-title">Xét tuyển đợt 2 & bổ sung</div><div class="tl-desc">Các trường chưa đủ chỉ tiêu tiếp tục xét tuyển bổ sung. Cuối tháng 9 bắt đầu nhập học chính thức.</div></div>
+    </div>
+  </div>
+
+  <div class="adm-panel" id="adm-tips">
+    <div class="card-grid card-grid-2">
+      <div class="card"><h4 style="font-family:var(--fd);font-size:.95rem;font-weight:700;margin-bottom:10px;color:var(--v2)"><i class="fa-solid fa-star"></i> Chọn Ngành Nghề</h4><p style="font-size:.83rem;color:var(--t2);line-height:1.65">Ưu tiên sở thích và điểm mạnh của bản thân. Nghiên cứu cơ hội việc làm, mức lương trung bình và xu hướng thị trường. Tham khảo tư vấn từ người trong ngành.</p></div>
+      <div class="card"><h4 style="font-family:var(--fd);font-size:.95rem;font-weight:700;margin-bottom:10px;color:var(--v3)"><i class="fa-solid fa-list-ol"></i> Xếp Thứ Tự Nguyện Vọng</h4><p style="font-size:.83rem;color:var(--t2);line-height:1.65">Nguyện vọng 1 nên là trường/ngành yêu thích nhất. Xếp từ điểm cao xuống thấp. Bao gồm cả trường dự phòng để đảm bảo có chỗ học.</p></div>
+      <div class="card"><h4 style="font-family:var(--fd);font-size:.95rem;font-weight:700;margin-bottom:10px;color:var(--v4)"><i class="fa-solid fa-calculator"></i> Tính Điểm Ưu Tiên</h4><p style="font-size:.83rem;color:var(--t2);line-height:1.65">Khu vực ưu tiên KV1 (+0.75), KV2-NT (+0.5), KV2 (+0.25). Đối tượng ưu tiên 01–07 (+2.0 đến +0.5). Điểm ưu tiên tối đa không vượt 2.75.</p></div>
+      <div class="card"><h4 style="font-family:var(--fd);font-size:.95rem;font-weight:700;margin-bottom:10px;color:var(--v5)"><i class="fa-solid fa-book"></i> Tra Điểm Chuẩn Lịch Sử</h4><p style="font-size:.83rem;color:var(--t2);line-height:1.65">Xem điểm chuẩn 3–5 năm gần nhất để ước tính. Điểm chuẩn có thể tăng/giảm 0.5–2.0 điểm mỗi năm tùy nhu cầu thị trường.</p></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ==================== CERTIFICATES ==================== -->
+<section class="section" id="certs">
+<div class="page-center">
+  <div class="sec-head">
+    <div class="sec-label"><i class="fa-solid fa-certificate"></i> Chứng Chỉ Quốc Tế</div>
+    <h2 class="sec-title">Bằng & Chứng Chỉ Quan Trọng</h2>
+    <p class="sec-sub">Các chứng chỉ giúp bạn xét tuyển thẳng, miễn thi và nâng cao hồ sơ đại học trong nước lẫn quốc tế.</p>
+  </div>
+  <div class="cert-grid" id="certGrid"></div>
+</div>
+</section>
+
+<!-- ==================== EXAMS ==================== -->
+<section class="section" id="exams">
+<div class="page-center">
+  <div class="sec-head">
+    <div class="sec-label"><i class="fa-solid fa-pen-nib"></i> Kỳ Thi Đánh Giá</div>
+    <h2 class="sec-title">Các Kỳ Thi Năng Lực 2025</h2>
+    <p class="sec-sub">Thông tin chi tiết về các kỳ thi đánh giá năng lực và đánh giá tư duy được nhiều trường đại học chấp nhận.</p>
+  </div>
+  <div id="examsList"></div>
+</div>
+</section>
+
+
+
+<!-- ==================== JS ==================== -->
+<script>
+// =================================================
+// DATA — inline JS variables (no JSON parse needed)
+// =================================================
+const MBTI_TYPES      = {"INTJ":{"name":"Kiến Trúc Sư","emoji":"🏛️","tagline":"Tư duy chiến lược, luôn có kế hoạch","desc":"Bạn có tư duy chiến lược và trí tưởng tượng phong phú. INTJ luôn có kế hoạch cho mọi thứ và hiếm khi hài lòng với hiện trạng. Bạn thích phân tích phức tạp và đưa ra giải pháp sáng tạo, độc lập và không ngại đối đầu với những thách thức khó.","strengths":["Tư duy chiến lược","Độc lập cao","Quyết tâm","Trí tuệ sắc bén","Sáng tạo"],"weaknesses":["Quá cầu toàn","Khó bày tỏ cảm xúc","Đôi khi quá tự tin","Thiếu kiên nhẫn"],"careers":["Khoa học máy tính","Kiến trúc","Nghiên cứu","Kỹ thuật","Kinh tế","Triết học"],"famous":"Elon Musk, Stephen Hawking, Nikola Tesla","grad":"linear-gradient(135deg,#1a1a2e,#16213e,#0f3460)"},"INTP":{"name":"Nhà Logic Học","emoji":"🔬","tagline":"Tìm kiếm sự thật và tri thức","desc":"Bạn là nhà tư duy sáng tạo với khao khát hiểu biết mạnh mẽ. INTP thích phân tích lý thuyết và tìm ra các mô hình ẩn. Bạn coi trọng sự chính xác và logic hơn tất cả và có thể mải mê nghiên cứu hàng giờ mà không biết mệt.","strengths":["Phân tích xuất sắc","Tư duy độc đáo","Khách quan","Học hỏi nhanh","Sáng tạo"],"weaknesses":["Hay trì hoãn","Khó giao tiếp cảm xúc","Vô tổ chức","Suy nghĩ quá nhiều"],"careers":["Toán học","Vật lý","Lập trình","Triết học","Nghiên cứu","Kinh tế học"],"famous":"Albert Einstein, Isaac Newton, Bill Gates","grad":"linear-gradient(135deg,#2d1b69,#11998e,#38ef7d)"},"ENTJ":{"name":"Chỉ Huy","emoji":"⚔️","tagline":"Lãnh đạo bẩm sinh, luôn hành động","desc":"Bạn là người lãnh đạo tự nhiên với sự tự tin và quyết đoán cao. ENTJ thích tổ chức, lên kế hoạch và dẫn dắt người khác đến thành công. Bạn không ngại đối mặt với thử thách và luôn tìm cách cải thiện mọi thứ.","strengths":["Lãnh đạo mạnh mẽ","Quyết đoán","Tự tin","Hiệu quả","Tư duy chiến lược"],"weaknesses":["Hay thống trị","Thiếu kiên nhẫn","Đôi khi lạnh lùng","Khó chấp nhận chỉ trích"],"careers":["Quản lý kinh doanh","Luật","Chính trị","Khởi nghiệp","Tư vấn chiến lược","Kỹ thuật"],"famous":"Steve Jobs, Napoleon Bonaparte, Margaret Thatcher","grad":"linear-gradient(135deg,#f7971e,#ffd200)"},"ENTP":{"name":"Nhà Tranh Luận","emoji":"💡","tagline":"Thách thức mọi giới hạn, ý tưởng bất tận","desc":"Bạn là người thông minh và tò mò, thích thách thức mọi quan điểm để tìm ra sự thật. ENTP không sợ tranh luận và thường tìm ra những góc nhìn mới mẻ cho vấn đề cũ. Bạn là nguồn cảm hứng và sáng tạo bất tận.","strengths":["Sáng tạo và đổi mới","Tranh luận xuất sắc","Nhanh trí","Thích nghi tốt","Tư duy liên kết"],"weaknesses":["Dễ chán","Hay tranh luận","Khó hoàn thành","Thiếu tập trung"],"careers":["Khởi nghiệp","Luật","Marketing","Khoa học","Kỹ thuật","Giải trí"],"famous":"Mark Twain, Thomas Edison, Socrates","grad":"linear-gradient(135deg,#f093fb,#f5576c)"},"INFJ":{"name":"Người Ủng Hộ","emoji":"🌟","tagline":"Truyền cảm hứng, luôn tìm ý nghĩa","desc":"Bạn là người có lý tưởng cao đẹp và sự đồng cảm sâu sắc. INFJ là kiểu người hiếm nhất, với khả năng hiểu người khác và nhìn thấy tiềm năng ẩn. Bạn muốn tạo ra sự thay đổi tích cực cho thế giới và có tầm nhìn xa.","strengths":["Đồng cảm sâu sắc","Trực giác mạnh","Quyết tâm","Sáng tạo","Tầm nhìn xa"],"weaknesses":["Cầu toàn","Quá nhạy cảm","Dễ kiệt sức","Khó mở lòng"],"careers":["Tâm lý học","Giáo dục","Y tế","Nghệ thuật","Văn học","Công tác xã hội"],"famous":"Martin Luther King Jr., Nelson Mandela, J.K. Rowling","grad":"linear-gradient(135deg,#667eea,#764ba2)"},"INFP":{"name":"Người Hòa Giải","emoji":"🌈","tagline":"Mơ mộng với trái tim thuần khiết","desc":"Bạn là người lý tưởng, sáng tạo và đồng cảm. INFP hướng đến sự xác thực và ý nghĩa trong tất cả mọi thứ. Bạn có khả năng cảm nhận cảm xúc sâu sắc và thường truyền cảm hứng cho người khác qua nghệ thuật.","strengths":["Đồng cảm cao","Sáng tạo nghệ thuật","Trung thực","Linh hoạt","Tận tâm"],"weaknesses":["Quá lý tưởng","Cô lập bản thân","Khó quyết định","Dễ tổn thương"],"careers":["Nghệ thuật","Văn học","Tâm lý học","Giáo dục","Âm nhạc","Thiết kế"],"famous":"William Shakespeare, J.R.R. Tolkien, Princess Diana","grad":"linear-gradient(135deg,#a8edea,#fed6e3)"},"ENFJ":{"name":"Người Truyền Cảm Hứng","emoji":"✨","tagline":"Dẫn dắt bằng trái tim, thay đổi thế giới","desc":"Bạn là người lãnh đạo lôi cuốn và đầy nhiệt huyết. ENFJ có khả năng truyền cảm hứng và giúp người khác đạt được tiềm năng. Bạn quan tâm sâu sắc đến phúc lợi người khác và luôn đặt họ lên hàng đầu.","strengths":["Lãnh đạo lôi cuốn","Đồng cảm cao","Giao tiếp xuất sắc","Đáng tin cậy","Khích lệ người khác"],"weaknesses":["Quá quan tâm ý kiến người khác","Khó nói không","Quá lý tưởng","Dễ kiệt sức"],"careers":["Giáo dục","Tâm lý học","Chính trị","Quan hệ công chúng","Huấn luyện","Lãnh đạo"],"famous":"Barack Obama, Oprah Winfrey, Martin Luther King Jr.","grad":"linear-gradient(135deg,#f6d365,#fda085)"},"ENFP":{"name":"Nhà Vô Địch","emoji":"🎨","tagline":"Tràn đầy nhiệt huyết và sáng tạo","desc":"Bạn là người nhiệt tình, sáng tạo và luôn tìm kiếm ý nghĩa sâu xa. ENFP nhìn thấy tiềm năng ở khắp nơi và có khả năng kết nối mọi người theo cách độc đáo. Bạn mang lại năng lượng tích cực cho mọi thứ.","strengths":["Sáng tạo cao","Nhiệt tình","Đồng cảm tốt","Linh hoạt","Truyền cảm hứng"],"weaknesses":["Khó tập trung lâu","Quá lạc quan","Không thích việc lặp lại","Mất kiên nhẫn"],"careers":["Nghệ thuật sáng tạo","Báo chí","Marketing","Tâm lý học","Diễn xuất","Khởi nghiệp"],"famous":"Robin Williams, Mark Twain, Walt Disney","grad":"linear-gradient(135deg,#fc4a1a,#f7b733)"},"ISTJ":{"name":"Người Hậu Cần","emoji":"📋","tagline":"Đáng tin cậy, trụ cột của mọi tổ chức","desc":"Bạn là người đáng tin cậy, có nguyên tắc và trách nhiệm cao. ISTJ coi trọng truyền thống và hệ thống đã được chứng minh. Bạn hoàn thành nhiệm vụ một cách triệt để và là người mà mọi người luôn có thể dựa vào.","strengths":["Đáng tin cậy","Có nguyên tắc","Tổ chức tốt","Kiên trì","Thực tế"],"weaknesses":["Kháng cự thay đổi","Cứng nhắc","Khó linh hoạt","Ít bày tỏ cảm xúc"],"careers":["Kế toán","Luật","Quản lý","Khoa học","Y tế","Quân sự"],"famous":"George Washington, Warren Buffett, Angela Merkel","grad":"linear-gradient(135deg,#134e5e,#71b280)"},"ISFJ":{"name":"Người Bảo Vệ","emoji":"🛡️","tagline":"Chăm sóc tận tụy, bảo vệ người thân","desc":"Bạn là người ấm áp, quan tâm và tận tâm với người thân. ISFJ luôn nhớ những chi tiết nhỏ về người họ quan tâm và sẵn sàng hi sinh vì người khác. Bạn là người giữ gìn truyền thống và sự ổn định.","strengths":["Ấm áp và quan tâm","Đáng tin cậy","Kiên nhẫn","Tỉ mỉ","Cống hiến"],"weaknesses":["Khó nói không","Quá khiêm tốn","Kháng cự thay đổi","Dễ bị lợi dụng"],"careers":["Y tế","Giáo dục","Công tác xã hội","Hành chính","Tư vấn","Điều dưỡng"],"famous":"Beyoncé, Kate Middleton, Mother Teresa","grad":"linear-gradient(135deg,#2980b9,#6dd5fa)"},"ESTJ":{"name":"Nhà Điều Hành","emoji":"👔","tagline":"Tổ chức hiệu quả, lãnh đạo thực tế","desc":"Bạn là người thực tế, có nguyên tắc và không ngại đứng lên lãnh đạo. ESTJ tin vào quy tắc, kỷ luật và trách nhiệm. Bạn xuất sắc trong việc tổ chức mọi người và tài nguyên để hoàn thành mục tiêu đúng thời hạn.","strengths":["Tổ chức xuất sắc","Đáng tin cậy","Quyết đoán","Nguyên tắc rõ ràng","Thực tế"],"weaknesses":["Cứng nhắc","Khó chấp nhận ý kiến khác","Đôi khi lạnh lùng","Quá chú trọng quy tắc"],"careers":["Quản lý","Luật","Tài chính","Quân sự","Chính trị","Kinh doanh"],"famous":"Henry Ford, Judge Judy, Sonia Sotomayor","grad":"linear-gradient(135deg,#c94b4b,#4b134f)"},"ESFJ":{"name":"Người Nuôi Dưỡng","emoji":"💖","tagline":"Kết nối cộng đồng, lan tỏa yêu thương","desc":"Bạn là người quan tâm, xã giao và tận tâm. ESFJ coi trọng sự hài hòa và luôn nỗ lực để mọi người cảm thấy được chào đón. Bạn có khả năng đọc hiểu cảm xúc người khác rất tốt.","strengths":["Ấm áp và thân thiện","Đáng tin cậy","Tổ chức tốt","Quan tâm đến người khác","Kiên nhẫn"],"weaknesses":["Cần được chấp thuận","Nhạy cảm với chỉ trích","Khó xử lý xung đột","Đôi khi kiểm soát"],"careers":["Y tế","Giáo dục","Dịch vụ khách hàng","Quản lý sự kiện","Công tác xã hội","Nhà hàng"],"famous":"Taylor Swift, Bill Clinton, Jennifer Garner","grad":"linear-gradient(135deg,#f857a6,#ff5858)"},"ISTP":{"name":"Thợ Thủ Công","emoji":"🔧","tagline":"Khéo tay, giải quyết vấn đề thực tế","desc":"Bạn là người táo bạo và thực tế, với khả năng phân tích vượt trội. ISTP thích khám phá thế giới bằng tay và mắt, không ngại thử nghiệm để hiểu cách vận hành. Bạn bình tĩnh nhưng quyết đoán khi cần.","strengths":["Giỏi giải quyết vấn đề","Bình tĩnh khủng hoảng","Thực tế","Độc lập","Linh hoạt"],"weaknesses":["Khó cam kết lâu dài","Thiếu nhạy cảm","Dễ chán nản","Khó lên kế hoạch dài hạn"],"careers":["Kỹ thuật","Cơ khí","Lập trình","Thể thao","Quân sự","Khoa học"],"famous":"Clint Eastwood, Michael Jordan, Erwin Rommel","grad":"linear-gradient(135deg,#373b44,#4286f4)"},"ISFP":{"name":"Người Phiêu Lưu","emoji":"🎵","tagline":"Nghệ sĩ tự do, sống trọn từng khoảnh khắc","desc":"Bạn là nghệ sĩ thực thụ theo nghĩa rộng nhất. ISFP yêu thích cuộc sống và cảm nhận thế giới qua giác quan. Bạn tự do, thiện chí và sẵn sàng khám phá những khả năng mới trong cuộc sống mỗi ngày.","strengths":["Nghệ thuật và sáng tạo","Đồng cảm","Cởi mở","Chân thành","Đam mê"],"weaknesses":["Khó lập kế hoạch","Tránh xung đột","Quá khiêm tốn","Khó diễn đạt cảm xúc"],"careers":["Nghệ thuật","Âm nhạc","Nhiếp ảnh","Thiết kế thời trang","Đầu bếp","Thú y"],"famous":"Lana Del Rey, Jimi Hendrix, Frida Kahlo","grad":"linear-gradient(135deg,#f0c27f,#fc4a1a)"},"ESTP":{"name":"Doanh Nhân","emoji":"🚀","tagline":"Hành động, sống vì khoảnh khắc hiện tại","desc":"Bạn là người thực tế, năng động và không sợ rủi ro. ESTP có khả năng đọc tình huống nhanh và hành động quyết đoán. Bạn thích sống ở hiện tại và thường là người đầu tiên bắt tay vào làm khi có vấn đề.","strengths":["Năng động và táo bạo","Quyết đoán nhanh","Thực tế","Xã giao tốt","Thích nghi cao"],"weaknesses":["Thiếu kiên nhẫn","Đôi khi liều lĩnh","Khó lên kế hoạch dài hạn","Bỏ lỡ cảm xúc"],"careers":["Kinh doanh","Marketing","Thể thao","Cảnh sát","Môi giới","Diễn xuất"],"famous":"Donald Trump, Madonna, Ernest Hemingway","grad":"linear-gradient(135deg,#0083b0,#00b4db)"},"ESFP":{"name":"Người Trình Diễn","emoji":"🎭","tagline":"Ngôi sao sân khấu, mang lại niềm vui","desc":"Bạn là người tự phát, năng lượng cao và luôn vui vẻ. ESFP thích cuộc sống và tìm kiếm sự thú vị trong mọi tình huống. Bạn có năng lực thiên bẩm về giải trí và biến những khoảnh khắc bình thường thành đặc biệt.","strengths":["Tự phát và vui vẻ","Đồng cảm tốt","Thực tế","Quan sát tinh tế","Giao tiếp xuất sắc"],"weaknesses":["Tránh xung đột","Dễ bị phân tâm","Khó lên kế hoạch","Quá nhạy cảm"],"careers":["Nghệ thuật biểu diễn","Du lịch","Chăm sóc sức khỏe","Giáo dục trẻ em","Dịch vụ khách hàng","Thể thao"],"famous":"Adele, Will Smith, Marilyn Monroe","grad":"linear-gradient(135deg,#f7971e,#ffd200)"}};
+const QUIZ_QUESTIONS  = [{"id":1,"text":"Sau một buổi tiệc đông người, bạn cảm thấy thế nào?","dim":"EI","a":"Năng lượng hơn, phấn khích và muốn tiếp tục gặp gỡ","b":"Mệt mỏi, cần thời gian một mình để nạp lại năng lượng","sa":"E","sb":"I"},{"id":2,"text":"Khi giải quyết vấn đề, bạn thích dựa vào:","dim":"SN","a":"Dữ liệu cụ thể và kinh nghiệm thực tế đã được chứng minh","b":"Trực giác, linh cảm và các khả năng ẩn chứa bên dưới","sa":"S","sb":"N"},{"id":3,"text":"Khi đưa ra quyết định quan trọng, bạn thường ưu tiên:","dim":"TF","a":"Logic và phân tích khách quan, dựa trên dữ liệu","b":"Cảm xúc và tác động đến người xung quanh","sa":"T","sb":"F"},{"id":4,"text":"Bạn thích làm việc theo cách nào?","dim":"JP","a":"Lên kế hoạch trước và tuân theo lịch trình đã định","b":"Linh hoạt, thích ứng theo tình huống thực tế","sa":"J","sb":"P"},{"id":5,"text":"Trong nhóm bạn bè, bạn thường là người:","dim":"EI","a":"Khởi xướng các cuộc trò chuyện và hoạt động nhóm","b":"Lắng nghe và đóng góp ý kiến khi được hỏi đến","sa":"E","sb":"I"},{"id":6,"text":"Khi học một môn học mới, bạn muốn:","dim":"SN","a":"Học từng bước một, nắm vững từng phần cơ bản trước","b":"Hiểu bức tranh tổng thể trước, rồi điền chi tiết sau","sa":"S","sb":"N"},{"id":7,"text":"Khi bạn bè cần giúp đỡ, bạn thường:","dim":"TF","a":"Đưa ra giải pháp thực tế và lời khuyên cụ thể nhất","b":"Ngồi lắng nghe và chia sẻ cảm xúc cùng họ","sa":"T","sb":"F"},{"id":8,"text":"Phòng học/không gian làm việc của bạn thường:","dim":"JP","a":"Được sắp xếp ngăn nắp và có tổ chức rõ ràng","b":"Có vẻ lộn xộn nhưng bạn biết mọi thứ ở đâu","sa":"J","sb":"P"},{"id":9,"text":"Bạn thích những buổi cuối tuần như thế nào?","dim":"EI","a":"Gặp gỡ nhiều bạn bè, tham gia hoạt động đông người","b":"Ở nhà đọc sách, xem phim hoặc làm việc cá nhân","sa":"E","sb":"I"},{"id":10,"text":"Khi mô tả một sự kiện đã xảy ra, bạn thường:","dim":"SN","a":"Kể lại chi tiết cụ thể theo thứ tự thời gian chính xác","b":"Nêu bật những điểm thú vị và ý nghĩa của nó","sa":"S","sb":"N"},{"id":11,"text":"Điều nào khiến bạn khó chịu hơn?","dim":"TF","a":"Khi ai đó không nhất quán trong logic và lý luận","b":"Khi ai đó thiếu đồng cảm và cư xử tàn nhẫn với người khác","sa":"T","sb":"F"},{"id":12,"text":"Khi có bài tập lớn, bạn thường:","dim":"JP","a":"Bắt đầu ngay và hoàn thành trước deadline nhiều ngày","b":"Chờ đến gần deadline khi có nhiều cảm hứng và ý tưởng hơn","sa":"J","sb":"P"},{"id":13,"text":"Ở trường, bạn thích hình thức học nào hơn?","dim":"EI","a":"Thảo luận nhóm và trình bày trước lớp","b":"Tự nghiên cứu và làm bài tập cá nhân yên tĩnh","sa":"E","sb":"I"},{"id":14,"text":"Theo bạn, điều quan trọng hơn trong cuộc sống là:","dim":"TF","a":"Sự công bằng và nguyên tắc nhất quán cho tất cả mọi người","b":"Lòng tốt và sự đồng cảm với từng người cụ thể","sa":"T","sb":"F"},{"id":15,"text":"Khi lên kế hoạch đi du lịch, bạn thích:","dim":"JP","a":"Có lịch trình chi tiết, đặt phòng và vé trước từ lâu","b":"Đi tự do, khám phá theo cảm hứng và tình huống thực tế","sa":"J","sb":"P"},{"id":16,"text":"Bạn thường thoải mái hơn khi ở:","dim":"EI","a":"Giữa đám đông, có nhiều người xung quanh và trò chuyện","b":"Một mình hoặc chỉ với một vài người thân thiết","sa":"E","sb":"I"},{"id":17,"text":"Điều nào mô tả bạn chính xác hơn?","dim":"SN","a":"Thực tế, đáng tin cậy và chú trọng vào hiện tại","b":"Sáng tạo, mơ mộng và hướng về tương lai","sa":"S","sb":"N"},{"id":18,"text":"Khi đội nhóm có mâu thuẫn, bạn thường:","dim":"TF","a":"Phân tích nguyên nhân và đưa ra giải pháp hợp lý nhất","b":"Hòa giải và đảm bảo mọi người đều cảm thấy ổn","sa":"T","sb":"F"},{"id":19,"text":"Bạn cảm thấy thoải mái nhất khi:","dim":"JP","a":"Mọi thứ đã được quyết định và sắp xếp rõ ràng từ trước","b":"Vẫn còn nhiều lựa chọn và khả năng chưa được xác định","sa":"J","sb":"P"},{"id":20,"text":"Khi gặp người lạ, bạn thường:","dim":"EI","a":"Dễ dàng bắt chuyện và tạo kết nối mới ngay lập tức","b":"Cần thời gian quan sát và làm quen dần dần","sa":"E","sb":"I"}];
+const UNIVERSITIES    = [{"name":"Đại học Quốc gia Hà Nội","short":"VNU-HN","region":"hn","type":"cong-lap","emoji":"🏛️","img":"https://images.unsplash.com/photo-1562774053-701939374585?w=400&q=70","majors":["Công nghệ thông tin","Kinh tế","Luật","Khoa học tự nhiên","Nhân văn","Ngoại ngữ","Giáo dục"],"score":"24–27","scoreMin":24,"scoreMax":27,"fee":"10–15 triệu/năm","admit":["THPTQG","ĐGNL","Học bạ"],"loc":"Xuân Thủy, Cầu Giấy, Hà Nội","web":"vnu.edu.vn"},{"name":"Đại học Bách Khoa Hà Nội","short":"HUST","region":"hn","type":"cong-lap","emoji":"⚙️","img":"https://images.unsplash.com/photo-1581092921461-39b9d08a1e44?w=400&q=70","majors":["Kỹ thuật điện","Cơ khí","CNTT","Vật liệu","Hóa học","Điện tử","Kinh tế kỹ thuật"],"score":"24–28","scoreMin":24,"scoreMax":28,"fee":"12–20 triệu/năm","admit":["THPTQG","ĐGNL","Thi riêng BKAA"],"loc":"Đại Cồ Việt, Hai Bà Trưng, Hà Nội","web":"hust.edu.vn"},{"name":"Đại học Ngoại thương","short":"FTU","region":"hn","type":"cong-lap","emoji":"🌐","img":"https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&q=70","majors":["Kinh tế quốc tế","Quản trị kinh doanh","Tài chính ngân hàng","Tiếng Anh thương mại","Luật kinh doanh quốc tế"],"score":"25–28","scoreMin":25,"scoreMax":28,"fee":"11–14 triệu/năm","admit":["THPTQG","Học bạ","Chứng chỉ QT"],"loc":"91 Chùa Láng, Đống Đa, Hà Nội","web":"ftu.edu.vn"},{"name":"Đại học Y Hà Nội","short":"HMU","region":"hn","type":"cong-lap","emoji":"🏥","img":"https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=400&q=70","majors":["Y đa khoa","Răng hàm mặt","Dược","Y tế công cộng","Điều dưỡng","Kỹ thuật y học"],"score":"25–28","scoreMin":25,"scoreMax":28,"fee":"13–25 triệu/năm","admit":["THPTQG"],"loc":"1 Tôn Thất Tùng, Đống Đa, Hà Nội","web":"hmu.edu.vn"},{"name":"Đại học Luật Hà Nội","short":"HLU","region":"hn","type":"cong-lap","emoji":"⚖️","img":"https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400&q=70","majors":["Luật","Luật kinh doanh","Luật quốc tế","Quản trị pháp luật"],"score":"24–27","scoreMin":24,"scoreMax":27,"fee":"10–13 triệu/năm","admit":["THPTQG","Học bạ"],"loc":"87 Nguyễn Chí Thanh, Đống Đa, Hà Nội","web":"hlu.edu.vn"},{"name":"ĐH Kinh tế Quốc dân","short":"NEU","region":"hn","type":"cong-lap","emoji":"📊","img":"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=70","majors":["Kinh tế","Kế toán","Tài chính","Quản trị kinh doanh","Marketing","Ngân hàng","Thống kê"],"score":"23–27","scoreMin":23,"scoreMax":27,"fee":"10–14 triệu/năm","admit":["THPTQG","Học bạ"],"loc":"207 Giải Phóng, Hai Bà Trưng, Hà Nội","web":"neu.edu.vn"},{"name":"Học viện Ngoại giao","short":"DAV","region":"hn","type":"cong-lap","emoji":"🕊️","img":"https://images.unsplash.com/photo-1570126618953-d437176e8c79?w=400&q=70","majors":["Quan hệ quốc tế","Luật quốc tế","Kinh tế quốc tế","Truyền thông quốc tế","Tiếng Anh"],"score":"25–28","scoreMin":25,"scoreMax":28,"fee":"11–15 triệu/năm","admit":["THPTQG","Học bạ"],"loc":"69 Chùa Láng, Đống Đa, Hà Nội","web":"dav.edu.vn"},{"name":"Đại học Sư phạm Hà Nội","short":"HNUE","region":"hn","type":"cong-lap","emoji":"📖","img":"https://images.unsplash.com/photo-1546521343-4eb2c01aa44b?w=400&q=70","majors":["Sư phạm Toán","Sư phạm Văn","Sư phạm Lý","Giáo dục Mầm non","Tâm lý giáo dục","Giáo dục tiểu học"],"score":"22–26","scoreMin":22,"scoreMax":26,"fee":"9–12 triệu/năm","admit":["THPTQG","Học bạ"],"loc":"136 Xuân Thủy, Cầu Giấy, Hà Nội","web":"hnue.edu.vn"},{"name":"Đại học FPT","short":"FPT Uni","region":"hn","type":"tu-thuc","emoji":"💻","img":"https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&q=70","majors":["Công nghệ thông tin","Kỹ thuật phần mềm","Kinh doanh quốc tế","Ngôn ngữ Anh","Thiết kế đồ họa","Trí tuệ nhân tạo"],"score":"18–23","scoreMin":18,"scoreMax":23,"fee":"25–35 triệu/năm","admit":["THPTQG","Học bạ","Thi riêng","IELTS"],"loc":"Hòa Lạc, Thạch Thất, Hà Nội & TP.HCM","web":"fpt.edu.vn"},{"name":"Đại học Phenikaa","short":"Phenikaa","region":"hn","type":"tu-thuc","emoji":"🔬","img":"https://images.unsplash.com/photo-1532094349884-543559c6c1de?w=400&q=70","majors":["Kỹ thuật ô tô","CNTT","Trí tuệ nhân tạo","Kiến trúc","Quản trị kinh doanh","Dược"],"score":"18–22","scoreMin":18,"scoreMax":22,"fee":"20–35 triệu/năm","admit":["THPTQG","Học bạ","ĐGNL"],"loc":"Yên Nghĩa, Hà Đông, Hà Nội","web":"phenikaa-uni.edu.vn"},{"name":"ĐH Kiến trúc Hà Nội","short":"HAU","region":"hn","type":"cong-lap","emoji":"🏗️","img":"https://images.unsplash.com/photo-1486325212027-8081e485255e?w=400&q=70","majors":["Kiến trúc","Quy hoạch đô thị","Kỹ thuật xây dựng","Nội thất","Cảnh quan","Mỹ thuật công nghiệp"],"score":"21–25","scoreMin":21,"scoreMax":25,"fee":"10–15 triệu/năm","admit":["THPTQG","Năng khiếu"],"loc":"Km10, Nguyễn Trãi, Thanh Xuân, Hà Nội","web":"hau.edu.vn"},{"name":"Học viện Công nghệ Bưu chính Viễn thông","short":"PTIT","region":"hn","type":"cong-lap","emoji":"📡","img":"https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&q=70","majors":["Công nghệ thông tin","Điện tử viễn thông","An toàn thông tin","Kỹ thuật phần mềm","Kinh tế số"],"score":"20–25","scoreMin":20,"scoreMax":25,"fee":"10–14 triệu/năm","admit":["THPTQG","Học bạ"],"loc":"122 Hoàng Quốc Việt, Cầu Giấy, Hà Nội","web":"ptit.edu.vn"},{"name":"Đại học Thương mại","short":"VTU","region":"hn","type":"cong-lap","emoji":"🏪","img":"https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&q=70","majors":["Quản trị kinh doanh","Kế toán","Tài chính ngân hàng","Marketing","Thương mại điện tử","Hệ thống thông tin quản lý"],"score":"21–25","scoreMin":21,"scoreMax":25,"fee":"10–13 triệu/năm","admit":["THPTQG","Học bạ"],"loc":"79 Hồ Tùng Mậu, Từ Liêm, Hà Nội","web":"vtu.edu.vn"},{"name":"Học viện Ngân hàng","short":"BAV","region":"hn","type":"cong-lap","emoji":"🏦","img":"https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&q=70","majors":["Tài chính ngân hàng","Kế toán kiểm toán","Quản trị kinh doanh","Hệ thống thông tin quản lý","Marketing"],"score":"22–26","scoreMin":22,"scoreMax":26,"fee":"10–13 triệu/năm","admit":["THPTQG","Học bạ"],"loc":"12 Chùa Bộc, Đống Đa, Hà Nội","web":"hvnh.edu.vn"},{"name":"Đại học VinUniversity","short":"VinUni","region":"hn","type":"tu-thuc","emoji":"💎","img":"https://images.unsplash.com/photo-1562774053-701939374585?w=400&q=70","majors":["Kỹ thuật máy tính","Khoa học sức khỏe","Kinh doanh","Khoa học dữ liệu","Y học"],"score":"Chuẩn QT","scoreMin":0,"scoreMax":0,"fee":"80–130 triệu/năm","admit":["SAT ≥ 1300","IELTS ≥ 6.5","Học bổng nội bộ"],"loc":"Vinhomes Ocean Park, Gia Lâm, Hà Nội","web":"vinuni.edu.vn"},{"name":"Đại học Quốc gia TP.HCM","short":"VNU-HCM","region":"hcm","type":"cong-lap","emoji":"🏫","img":"https://images.unsplash.com/photo-1571019613914-85f342c6a11e?w=400&q=70","majors":["Kỹ thuật","Khoa học tự nhiên","Khoa học xã hội","Kinh tế luật","CNTT","Môi trường"],"score":"23–27","scoreMin":23,"scoreMax":27,"fee":"10–18 triệu/năm","admit":["THPTQG","ĐGNL TP.HCM","Học bạ"],"loc":"Khu phố 6, P.Linh Trung, Thủ Đức, TP.HCM","web":"vnuhcm.edu.vn"},{"name":"Đại học Bách Khoa TP.HCM","short":"HCMUT","region":"hcm","type":"cong-lap","emoji":"🔩","img":"https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=400&q=70","majors":["Kỹ thuật xây dựng","Cơ khí","Điện-Điện tử","CNTT","Hóa học","Vật liệu","Môi trường"],"score":"23–27","scoreMin":23,"scoreMax":27,"fee":"11–20 triệu/năm","admit":["THPTQG","ĐGNL TP.HCM"],"loc":"268 Lý Thường Kiệt, Q.10, TP.HCM","web":"hcmut.edu.vn"},{"name":"Đại học Kinh tế TP.HCM","short":"UEH","region":"hcm","type":"cong-lap","emoji":"💹","img":"https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&q=70","majors":["Kinh tế","Kế toán kiểm toán","Tài chính ngân hàng","Quản trị","Marketing","Luật kinh doanh","Công nghệ thông tin"],"score":"22–26","scoreMin":22,"scoreMax":26,"fee":"10–15 triệu/năm","admit":["THPTQG","Học bạ","ĐGNL"],"loc":"59C Nguyễn Đình Chiểu, Q.3, TP.HCM","web":"ueh.edu.vn"},{"name":"Đại học Y Dược TP.HCM","short":"UMP","region":"hcm","type":"cong-lap","emoji":"💊","img":"https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&q=70","majors":["Y đa khoa","Dược","Răng hàm mặt","Y tế công cộng","Điều dưỡng","Kỹ thuật y học"],"score":"24–28","scoreMin":24,"scoreMax":28,"fee":"13–30 triệu/năm","admit":["THPTQG"],"loc":"217 Hồng Bàng, Q.5, TP.HCM","web":"ump.edu.vn"},{"name":"Đại học Luật TP.HCM","short":"ULaw HCM","region":"hcm","type":"cong-lap","emoji":"⚖️","img":"https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400&q=70","majors":["Luật","Luật kinh doanh","Luật thương mại quốc tế","Quản trị pháp luật"],"score":"23–26","scoreMin":23,"scoreMax":26,"fee":"10–13 triệu/năm","admit":["THPTQG","Học bạ"],"loc":"2 Nguyễn Tất Thành, Q.4, TP.HCM","web":"hcmulaw.edu.vn"},{"name":"Đại học RMIT Việt Nam","short":"RMIT VN","region":"hcm","type":"tu-thuc","emoji":"🦘","img":"https://images.unsplash.com/photo-1562774053-701939374585?w=400&q=70","majors":["Kinh doanh","Công nghệ thông tin","Truyền thông","Thiết kế","Thời trang","Tâm lý học","Kỹ thuật"],"score":"Chuẩn QT","scoreMin":0,"scoreMax":0,"fee":"150–250 triệu/năm","admit":["IELTS ≥ 6.0","SAT","Học bạ quốc tế"],"loc":"702 Nguyễn Văn Linh, Q.7, TP.HCM","web":"rmit.edu.vn"},{"name":"ĐH Sư phạm Kỹ thuật TP.HCM","short":"HCMUTE","region":"hcm","type":"cong-lap","emoji":"🛠️","img":"https://images.unsplash.com/photo-1581092921461-39b9d08a1e44?w=400&q=70","majors":["Kỹ thuật cơ điện tử","Công nghệ ô tô","CNTT","Kỹ thuật điện","Kiến trúc","Thiết kế thời trang"],"score":"20–24","scoreMin":20,"scoreMax":24,"fee":"10–18 triệu/năm","admit":["THPTQG","Học bạ"],"loc":"1 Võ Văn Ngân, Thủ Đức, TP.HCM","web":"hcmute.edu.vn"},{"name":"Đại học Tôn Đức Thắng","short":"TDTU","region":"hcm","type":"tu-thuc","emoji":"⭐","img":"https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=400&q=70","majors":["Kỹ thuật","CNTT","Kinh tế","Luật","Điều dưỡng","Môi trường","Thiết kế đồ họa"],"score":"20–24","scoreMin":20,"scoreMax":24,"fee":"18–28 triệu/năm","admit":["THPTQG","Học bạ","ĐGNL"],"loc":"19 Nguyễn Hữu Thọ, Q.7, TP.HCM","web":"tdtu.edu.vn"},{"name":"ĐH Công nghiệp TP.HCM","short":"IUH","region":"hcm","type":"cong-lap","emoji":"🏭","img":"https://images.unsplash.com/photo-1581092921461-39b9d08a1e44?w=400&q=70","majors":["Công nghệ may","Cơ khí","CNTT","Kinh tế","Kế toán","Điện tử","Hóa học ứng dụng"],"score":"19–23","scoreMin":19,"scoreMax":23,"fee":"10–15 triệu/năm","admit":["THPTQG","Học bạ"],"loc":"12 Nguyễn Văn Bảo, Gò Vấp, TP.HCM","web":"iuh.edu.vn"},{"name":"Đại học Đà Nẵng","short":"UD","region":"dn","type":"cong-lap","emoji":"🌊","img":"https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&q=70","majors":["Kỹ thuật","CNTT","Kinh tế","Sư phạm","Ngoại ngữ","Y khoa","Kiến trúc"],"score":"20–25","scoreMin":20,"scoreMax":25,"fee":"9–14 triệu/năm","admit":["THPTQG","Học bạ","ĐGNL"],"loc":"41 Lê Duẩn, Hải Châu, Đà Nẵng","web":"udn.vn"},{"name":"Đại học Duy Tân","short":"DTU","region":"dn","type":"tu-thuc","emoji":"🌴","img":"https://images.unsplash.com/photo-1571019613914-85f342c6a11e?w=400&q=70","majors":["Y khoa","Dược","CNTT","Kiến trúc","Du lịch","Quản trị kinh doanh","Điều dưỡng"],"score":"18–22","scoreMin":18,"scoreMax":22,"fee":"18–30 triệu/năm","admit":["THPTQG","Học bạ"],"loc":"254 Nguyễn Văn Linh, Thanh Khê, Đà Nẵng","web":"duytan.edu.vn"},{"name":"Đại học Cần Thơ","short":"CTU","region":"other","type":"cong-lap","emoji":"🌾","img":"https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=400&q=70","majors":["Nông nghiệp","Thủy sản","Công nghệ thực phẩm","Kỹ thuật","Kinh tế","CNTT","Sư phạm"],"score":"18–23","scoreMin":18,"scoreMax":23,"fee":"9–13 triệu/năm","admit":["THPTQG","Học bạ"],"loc":"Khu II, đường 3/2, Ninh Kiều, Cần Thơ","web":"ctu.edu.vn"},{"name":"Đại học Huế","short":"HU","region":"other","type":"cong-lap","emoji":"🏯","img":"https://images.unsplash.com/photo-1570126618953-d437176e8c79?w=400&q=70","majors":["Y dược","Sư phạm","Luật","Kinh tế","Ngoại ngữ","Nghệ thuật","Nông nghiệp"],"score":"17–24","scoreMin":17,"scoreMax":24,"fee":"8–15 triệu/năm","admit":["THPTQG","Học bạ"],"loc":"3 Lê Lợi, TP. Huế, Thừa Thiên Huế","web":"hueuni.edu.vn"},{"name":"Đại học Thái Nguyên","short":"TNU","region":"other","type":"cong-lap","emoji":"🍃","img":"https://images.unsplash.com/photo-1546521343-4eb2c01aa44b?w=400&q=70","majors":["Nông lâm","Y dược","Sư phạm","Kỹ thuật công nghiệp","Kinh tế","CNTT"],"score":"17–22","scoreMin":17,"scoreMax":22,"fee":"8–12 triệu/năm","admit":["THPTQG","Học bạ"],"loc":"Phường Tân Thịnh, TP. Thái Nguyên","web":"tnu.edu.vn"},{"name":"Đại học Vinh","short":"VU","region":"other","type":"cong-lap","emoji":"🎓","img":"https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&q=70","majors":["Sư phạm","Kinh tế","Kỹ thuật","Nông nghiệp","Y tế","Ngoại ngữ","Luật"],"score":"17–23","scoreMin":17,"scoreMax":23,"fee":"8–12 triệu/năm","admit":["THPTQG","Học bạ"],"loc":"182 Lê Duẩn, TP. Vinh, Nghệ An","web":"vinhuni.edu.vn"},{"name":"Đại học Quy Nhơn","short":"QNU","region":"other","type":"cong-lap","emoji":"🌅","img":"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=70","majors":["Sư phạm","Kinh tế","Kỹ thuật","Ngoại ngữ","Du lịch","CNTT"],"score":"17–22","scoreMin":17,"scoreMax":22,"fee":"7–11 triệu/năm","admit":["THPTQG","Học bạ"],"loc":"170 An Dương Vương, TP. Quy Nhơn, Bình Định","web":"qnu.edu.vn"},{"name":"Đại học Nha Trang","short":"NTU","region":"other","type":"cong-lap","emoji":"🐟","img":"https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=400&q=70","majors":["Thủy sản","Nuôi trồng thủy sản","Công nghệ thực phẩm","Kỹ thuật","Kinh tế biển","Du lịch"],"score":"17–22","scoreMin":17,"scoreMax":22,"fee":"8–12 triệu/năm","admit":["THPTQG","Học bạ"],"loc":"2 Nguyễn Đình Chiểu, Nha Trang, Khánh Hòa","web":"ntu.edu.vn"},{"name":"Đại học Đà Lạt","short":"DLU","region":"other","type":"cong-lap","emoji":"🌺","img":"https://images.unsplash.com/photo-1486325212027-8081e485255e?w=400&q=70","majors":["Du lịch","Kinh tế","Sư phạm","CNTT","Nông nghiệp","Kỹ thuật hạt nhân"],"score":"17–22","scoreMin":17,"scoreMax":22,"fee":"8–12 triệu/năm","admit":["THPTQG","Học bạ"],"loc":"1 Phù Đổng Thiên Vương, TP. Đà Lạt, Lâm Đồng","web":"dlu.edu.vn"}];
+const COMBOS          = {"A00":["Toán","Vật lý","Hóa học"],"A01":["Toán","Vật lý","Tiếng Anh"],"B00":["Toán","Hóa học","Sinh học"],"B08":["Toán","Sinh học","Tiếng Anh"],"C00":["Văn","Lịch sử","Địa lý"],"C01":["Văn","Toán","Vật lý"],"D01":["Văn","Toán","Tiếng Anh"],"D07":["Toán","Hóa học","Tiếng Anh"],"D08":["Toán","Sinh học","Tiếng Anh"],"D09":["Toán","Lịch sử","Tiếng Anh"],"D14":["Văn","Lịch sử","Tiếng Anh"],"D15":["Văn","Địa lý","Tiếng Anh"]};
+const MAJORS_BY_COMBO = {"A00":["Kỹ thuật điện - điện tử","Cơ khí chế tạo máy","Kỹ thuật hóa học","Vật lý kỹ thuật","Kỹ thuật xây dựng","Công nghệ vật liệu","Hóa công nghệ","Kỹ thuật địa chất","Luyện kim","Công nghệ ô tô"],"A01":["Công nghệ thông tin","Kỹ thuật phần mềm","An toàn thông tin","Trí tuệ nhân tạo","Khoa học dữ liệu","Kỹ thuật máy tính","Điện tử viễn thông","Hệ thống thông tin","Mạng máy tính","Công nghệ số"],"B00":["Y đa khoa","Dược học","Răng hàm mặt","Sinh học","Công nghệ sinh học","Công nghệ thực phẩm","Nông học","Thú y","Khoa học môi trường","Y học cổ truyền"],"B08":["Điều dưỡng","Hộ sinh","Kỹ thuật y học","Y tế công cộng","Dinh dưỡng","Sinh học ứng dụng","Dược","Công nghệ sinh học y dược"],"C00":["Lịch sử","Địa lý","Văn học","Triết học","Giáo dục chính trị","Công tác xã hội","Xã hội học","Khoa học thư viện","Du lịch","Quản lý văn hóa"],"C01":["Vật lý sư phạm","Toán học","Giáo dục học","Quản lý giáo dục","Khoa học tự nhiên","Vật lý","Toán - Tin"],"D01":["Quản trị kinh doanh","Marketing","Thương mại điện tử","Kinh tế học","Tài chính - Ngân hàng","Kế toán kiểm toán","Ngôn ngữ Anh","Biên phiên dịch","Quan hệ công chúng","Báo chí - Truyền thông"],"D07":["Hóa học","Hóa dược","Công nghệ hóa học","Kỹ thuật hóa","Hóa phân tích","Kỹ thuật môi trường"],"D08":["Y khoa (một số trường)","Sinh học","Điều dưỡng","Công nghệ sinh học","Dược học","Nông nghiệp"],"D09":["Luật","Luật kinh doanh","Lịch sử","Giáo dục chính trị","Địa lý học","Khoa học chính trị"],"D14":["Ngôn ngữ Anh","Ngôn ngữ Pháp","Du lịch","Văn học","Báo chí","Truyền thông đa phương tiện","Quan hệ công chúng"],"D15":["Du lịch","Quản trị dịch vụ du lịch","Địa lý","Môi trường","Quản lý đô thị","Kinh tế địa lý"]};
+const CERTS           = [{"name":"IELTS","full":"International English Language Testing System","icon":"🇬🇧","org":"IDP / British Council","levels":[{"level":"5.0–5.5","desc":"Cơ bản"},{"level":"6.0–6.5","desc":"Nhiều trường CĐ, ĐH tốp mid"},{"level":"7.0+","desc":"Trường top, xét thẳng một số ngành"},{"level":"7.5+","desc":"RMIT, BUV, học bổng quốc tế"}],"use":"Xét tuyển thẳng/ưu tiên vào 200+ trường ĐH Việt Nam. Học bổng nước ngoài. Cộng điểm ưu tiên nhiều chương trình.","fee":"4.4–4.9 triệu VNĐ/lần"},{"name":"TOEFL iBT","full":"Test of English as a Foreign Language","icon":"🇺🇸","org":"ETS (Educational Testing Service)","levels":[{"level":"60–79","desc":"Cơ bản"},{"level":"80–99","desc":"Nhiều trường chấp nhận"},{"level":"100+","desc":"Trường top quốc tế"},{"level":"110+","desc":"Ivy League, học bổng cao"}],"use":"Phổ biến cho du học Mỹ, Canada, Úc. Một số trường ĐH Việt Nam chấp nhận thay IELTS.","fee":"~5.5 triệu VNĐ/lần"},{"name":"SAT","full":"Scholastic Assessment Test","icon":"📐","org":"College Board (Mỹ)","levels":[{"level":"900–1100","desc":"Cơ bản"},{"level":"1200–1350","desc":"FPT Uni, nhiều trường ĐH VN"},{"level":"1400–1500","desc":"VinUniversity, học bổng tốt"},{"level":"1500+","desc":"Ivy League, học bổng đầy đủ"}],"use":"Du học Mỹ. Xét tuyển vào FPT, VinUniversity, RMIT VN, một số chương trình liên kết quốc tế.","fee":"~2.8 triệu VNĐ/lần"},{"name":"HSK","full":"Hànyǔ Shuǐpíng Kǎoshì (Tiếng Trung)","icon":"🇨🇳","org":"Hanban/Confucius Institute","levels":[{"level":"HSK 3","desc":"Giao tiếp cơ bản"},{"level":"HSK 4","desc":"Nhiều trường VN yêu cầu"},{"level":"HSK 5","desc":"Du học Trung Quốc (đủ dùng)"},{"level":"HSK 6","desc":"Thông thạo hoàn toàn"}],"use":"Xét tuyển ngành Tiếng Trung tại VN. Học bổng Chính phủ Trung Quốc. Du học tại các trường ĐH Trung Quốc.","fee":"~600–1.200k VNĐ/lần"},{"name":"JLPT","full":"Japanese-Language Proficiency Test","icon":"🇯🇵","org":"Japan Foundation & JEES","levels":[{"level":"N5","desc":"Cơ bản nhất"},{"level":"N4–N3","desc":"Giao tiếp cơ bản"},{"level":"N2","desc":"Yêu cầu du học, việc làm JP"},{"level":"N1","desc":"Thông thạo chuyên môn"}],"use":"Xét tuyển ngành Tiếng Nhật. Học bổng Chính phủ Nhật Bản (MEXT). Điều kiện làm việc tại công ty Nhật.","fee":"~800k–1.2 triệu VNĐ/lần"},{"name":"TOPIK","full":"Test of Proficiency in Korean","icon":"🇰🇷","org":"National Institute for International Education","levels":[{"level":"1–2","desc":"Sơ cấp"},{"level":"3–4","desc":"Trung cấp, du học HQ"},{"level":"5–6","desc":"Cao cấp, làm việc chuyên môn"}],"use":"Học bổng Chính phủ Hàn Quốc (GKS). Xét tuyển ngành Tiếng Hàn. Điều kiện chương trình du học HQ.","fee":"~300–500k VNĐ/lần"}];
+const EXAMS           = [{"name":"Đánh Giá Năng Lực ĐHQG Hà Nội (HSA)","org":"Đại học Quốc gia Hà Nội","icon":"🏫","structure":"150 câu / 195 phút / 150 điểm","sections":["Toán học (50 câu)","Khoa học (50 câu: Vật lý, Hóa học, Sinh học)","Ngôn ngữ (50 câu: Tiếng Việt + Tiếng Anh)"],"schedule":"8–10 đợt/năm, tại nhiều tỉnh thành","fee":"150.000–200.000 VNĐ/lần","accepted":"Hơn 80 trường đại học chấp nhận điểm HSA 2025","register":"thi.hust.edu.vn","steps":["Đăng ký tài khoản tại cổng thi","Chọn đợt thi và địa điểm phù hợp","Nộp lệ phí và nhận phiếu báo thi","Dự thi và nhận kết quả sau 2–3 tuần","Sử dụng điểm để đăng ký xét tuyển trên hệ thống"]},{"name":"Đánh Giá Năng Lực ĐHQG TP.HCM (APT)","org":"Đại học Quốc gia TP. Hồ Chí Minh","icon":"🌆","structure":"120 câu / 150 phút / 1200 điểm","sections":["Sử dụng ngôn ngữ (40 câu)","Toán học – Tư duy logic (40 câu)","Giải quyết vấn đề (40 câu: KHTN/KHXH)"],"schedule":"2–3 đợt/năm (thường tháng 3–4 và tháng 6–8/2025)","fee":"150.000 VNĐ/lần","accepted":"Hơn 70 trường đại học phía Nam và cả nước chấp nhận","register":"vnuhcm.edu.vn/tuyen-sinh","steps":["Tra cứu lịch thi trên cổng ĐHQG TP.HCM","Đăng ký tài khoản và điền thông tin cá nhân","Nộp lệ phí qua ngân hàng hoặc ví điện tử","Nhận thẻ dự thi và đến điểm thi đúng giờ","Tra cứu kết quả và đăng ký xét tuyển"]},{"name":"Kỳ Thi V-SAT (Tư duy)","org":"Công ty Cổ phần Giáo dục Việt Nam (VAS)","icon":"🧠","structure":"120 câu / 120 phút / 1200 điểm","sections":["Tư duy toán học","Tư duy đọc hiểu","Tư duy khoa học hoặc xã hội"],"schedule":"4–6 đợt/năm, tổ chức tại các tỉnh thành lớn","fee":"350.000 VNĐ/lần","accepted":"20+ trường đại học chấp nhận (2024–2025)","register":"vsat.edu.vn","steps":["Đăng ký trên website V-SAT","Chọn đợt thi, địa điểm","Nộp lệ phí và nhận xác nhận","Dự thi theo lịch đã đăng ký","Nhận kết quả và certificate điện tử"]},{"name":"Đánh Giá Tư Duy ĐH Bách Khoa HN (BKAA)","org":"Đại học Bách Khoa Hà Nội","icon":"⚙️","structure":"Bài thi tư duy / 120 phút","sections":["Tư duy toán học","Tư duy đọc hiểu tiếng Việt","Tư duy khoa học (Lý/Hóa/Sinh)"],"schedule":"1–2 đợt/năm (thường tháng 4–5/2025)","fee":"180.000 VNĐ/lần","accepted":"Chủ yếu xét tuyển vào ĐHBK HN và các trường liên kết","register":"ts.hust.edu.vn","steps":["Đăng ký trên cổng tuyển sinh ĐHBK HN","Chọn môn thi tổ hợp phù hợp ngành","Nộp phí và nhận phiếu dự thi","Dự thi tại trường Bách Khoa Hà Nội","Kết quả được sử dụng để xét tuyển vào ĐHBK"]}];
+
+
+// =================================================
+// APP LOGIC
+// =================================================
+// =====================
+// APP STATE
+// =====================
+let quizState = {q:0,ans:{},mode:'quiz'}; // mode: quiz | result
+
+// =====================
+// NAVIGATION
+// =====================
+function goTo(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  if(id==='universities') renderUnis('all');
+  if(id==='majors') initMajors();
+  if(id==='mbti-about') renderTypesAll();
+  if(id==='certs') renderCerts();
+  if(id==='exams') renderExams();
+  // 🔥 Firebase — track page view
+  const _pn={home:'Trang Chủ','mbti-about':'MBTI','universities':'Trường ĐH','majors':'Ngành Học','admissions':'Xét Tuyển','certs':'Chứng Chỉ','exams':'Kỳ Thi'};
+  if(typeof trackPage!=='undefined') trackPage(_pn[id]||id);
+}
+function toggleNav(){
+  document.getElementById('navLinks').classList.toggle('open');
+}
+function closeNav(){
+  document.getElementById('navLinks').classList.remove('open');
+}
+
+// =====================
+// QUIZ MODAL
+// =====================
+function openQuizModal(){
+  quizState = {q:0,ans:{},mode:'quiz'};
+  const modal = document.getElementById('quizModal');
+  modal.classList.remove('hidden');
+  document.body.style.overflow='hidden';
+  renderQuizQuestion();
+}
+function closeQuizModal(){
+  document.getElementById('quizModal').classList.add('hidden');
+  document.body.style.overflow='';
+}
+document.getElementById('quizModal').addEventListener('click',function(e){
+  if(e.target===this) closeQuizModal();
+});
+
+function renderQuizQuestion(){
+  const q = QUIZ_QUESTIONS[quizState.q];
+  const total = QUIZ_QUESTIONS.length;
+  const pct = (quizState.q/total)*100;
+  const sel = quizState.ans[q.id];
+  document.getElementById('quizContent').innerHTML = `
+    <div class="modal-quiz-wrap">
+      <button class="modal-close" onclick="closeQuizModal()"><i class="fa-solid fa-xmark"></i></button>
+      <div class="quiz-header">
+        <div class="quiz-top">
+          <div class="quiz-counter">Câu <span class="cur">${quizState.q+1}</span> / ${total}</div>
+          <div class="dim-tag dim-${q.dim}">${q.dim}</div>
+        </div>
+        <div class="prog-wrap"><div class="prog-fill" id="pf" style="width:${pct}%"></div></div>
+      </div>
+      <div class="q-card">
+        <div class="q-num-bg">${String(quizState.q+1).padStart(2,'0')}</div>
+        <div class="q-text">${q.text}</div>
+      </div>
+      <div class="opts">
+        <button class="opt-btn ${sel==='A'?'selected':''}" onclick="selectQuizAns('A')">
+          <div class="opt-letter">A</div>
+          <div class="opt-text">${q.a}</div>
+        </button>
+        <button class="opt-btn ${sel==='B'?'selected':''}" onclick="selectQuizAns('B')">
+          <div class="opt-letter">B</div>
+          <div class="opt-text">${q.b}</div>
+        </button>
+      </div>
+      <div class="quiz-nav">
+        <button class="btn-back2" onclick="quizPrev()" ${quizState.q===0?'disabled':''}>← Quay lại</button>
+        <button class="btn-next2" onclick="quizNext()" ${!sel?'disabled':''}>${quizState.q===total-1?'Xem Kết Quả 🎉':'Tiếp theo →'}</button>
+      </div>
+    </div>`;
+}
+
+function selectQuizAns(choice){
+  const q = QUIZ_QUESTIONS[quizState.q];
+  quizState.ans[q.id] = choice;
+  document.querySelectorAll('.opt-btn').forEach((b,i)=>{
+    b.classList.toggle('selected',(i===0&&choice==='A')||(i===1&&choice==='B'));
+  });
+  document.querySelector('.btn-next2').disabled=false;
+  setTimeout(()=>{ if(quizState.q<QUIZ_QUESTIONS.length-1) quizNext(); },500);
+}
+function quizNext(){
+  if(quizState.q<QUIZ_QUESTIONS.length-1){quizState.q++;renderQuizQuestion();}
+  else calcQuizResult();
+}
+function quizPrev(){
+  if(quizState.q>0){quizState.q--;renderQuizQuestion();}
+}
+function calcQuizResult(){
+  const sc={E:0,I:0,S:0,N:0,T:0,F:0,J:0,P:0};
+  QUIZ_QUESTIONS.forEach(q=>{
+    const a=quizState.ans[q.id];
+    if(a==='A')sc[q.sa]++;else if(a==='B')sc[q.sb]++;
+  });
+  const type=(sc.E>=sc.I?'E':'I')+(sc.S>=sc.N?'S':'N')+(sc.T>=sc.F?'T':'F')+(sc.J>=sc.P?'J':'P');
+  if(typeof trackMBTI!=='undefined') trackMBTI(type); // 🔥 Firebase
+  showQuizResult(type,sc);
+}
+function showQuizResult(type,sc){
+  const d=MBTI_TYPES[type];
+  const tEI=sc.E+sc.I||1,tSN=sc.S+sc.N||1,tTF=sc.T+sc.F||1,tJP=sc.J+sc.P||1;
+  const pE=Math.round(sc.E/tEI*100),pS=Math.round(sc.S/tSN*100),pT=Math.round(sc.T/tTF*100),pJ=Math.round(sc.J/tJP*100);
+  document.getElementById('quizContent').innerHTML=`
+    <div class="modal-result">
+      <button class="modal-close" onclick="closeQuizModal()"><i class="fa-solid fa-xmark"></i></button>
+      <div class="res-hero">
+        <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:var(--t3);margin-bottom:14px">✦ Kết Quả Của Bạn ✦</div>
+        <span class="res-emoji">${d.emoji}</span>
+        <span class="res-code" style="background:${d.grad};-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">${type}</span>
+        <div class="res-name">${d.name}</div>
+        <div class="res-tag2">${d.tagline}</div>
+      </div>
+      <div class="dim-bars">
+        <h4><i class="fa-solid fa-chart-bar" style="color:var(--v1)"></i> Phân Tích Tính Cách</h4>
+        ${barHTML('EI',pE,'Hướng ngoại (E)','Hướng nội (I)','fill-ei')}
+        ${barHTML('SN',pS,'Thực tế (S)','Trực giác (N)','fill-sn')}
+        ${barHTML('TF',pT,'Lý trí (T)','Cảm xúc (F)','fill-tf')}
+        ${barHTML('JP',pJ,'Ngăn nắp (J)','Linh hoạt (P)','fill-jp')}
+      </div>
+      <div class="res-desc-box">
+        <h4><i class="fa-solid fa-book-open" style="color:var(--v2)"></i> Mô Tả</h4>
+        <p>${d.desc}</p>
+        <div class="famous-box"><strong>Người nổi tiếng cùng nhóm:</strong> ${d.famous}</div>
+      </div>
+      <div class="tag-grid">
+        <div class="tag-box">
+          <h4><i class="fa-solid fa-star" style="color:var(--v3)"></i> Điểm Mạnh</h4>
+          <div class="tag-list2">${d.strengths.map(s=>`<span class="tag2 tag-s">${s}</span>`).join('')}</div>
+        </div>
+        <div class="tag-box">
+          <h4><i class="fa-solid fa-magnifying-glass" style="color:var(--v2)"></i> Cần Cải Thiện</h4>
+          <div class="tag-list2">${d.weaknesses.map(w=>`<span class="tag2 tag-w">${w}</span>`).join('')}</div>
+        </div>
+      </div>
+      <div class="career-box">
+        <h4><i class="fa-solid fa-graduation-cap" style="color:var(--v4)"></i> Nghề Nghiệp Phù Hợp</h4>
+        <div class="tag-list2">${d.careers.map(c=>`<span class="tag2 tag-c">${c}</span>`).join('')}</div>
+      </div>
+      <div class="res-actions">
+        <button class="btn-redo" onclick="openQuizModal()"><i class="fa-solid fa-rotate-right"></i> Làm Lại</button>
+        <button class="btn-copy2" onclick="copyMBTI('${type}','${d.name}')"><i class="fa-solid fa-copy"></i> Sao Chép</button>
+        <button class="btn-copy2" onclick="closeQuizModal();goTo('mbti-about')"><i class="fa-solid fa-info-circle"></i> Tìm Hiểu Thêm</button>
+      </div>
+    </div>`;
+  // animate bars
+  setTimeout(()=>{
+    document.querySelectorAll('.db-fill').forEach(b=>{const w=b.dataset.w;if(w)b.style.width=w+'%';});
+  },300);
+  launchConfetti();
+}
+function barHTML(dim,pct,lL,lR,cls){
+  const actL=pct>=50,actR=pct<50;
+  return `<div class="db-item">
+    <div class="db-labels">
+      <div><span class="db-l${actL?' act':''}">${lL}</span><span class="db-pct"> ${pct}%</span></div>
+      <span class="db-r${actR?' act':''}">vs ${lR}</span>
+    </div>
+    <div class="db-track"><div class="db-fill ${cls}" data-w="${pct}" style="width:0%"></div></div>
+  </div>`;
+}
+function copyMBTI(code,name){
+  navigator.clipboard.writeText(`🧠 Kết quả MBTI của tôi: ${code} — ${name}\n✨ Làm bài test tại: HướngNghiệp THPT`).then(()=>showToast('Đã sao chép kết quả! 🎉'));
+}
+
+// =====================
+// UNIVERSITIES
+// =====================
+let currentFilter='all';
+let scoreFilterMin=15, scoreFilterMax=30;
+let compareList=[];
+
+function applyScoreFilter(){
+  scoreFilterMin=parseFloat(document.getElementById('scoreMin').value);
+  scoreFilterMax=parseFloat(document.getElementById('scoreMax').value);
+  document.getElementById('scoreMinLabel').textContent=scoreFilterMin;
+  document.getElementById('scoreMaxLabel').textContent=scoreFilterMax;
+  renderUnis(currentFilter);
+}
+function resetScoreFilter(){
+  document.getElementById('scoreMin').value=15;
+  document.getElementById('scoreMax').value=30;
+  scoreFilterMin=15; scoreFilterMax=30;
+  document.getElementById('scoreMinLabel').textContent=15;
+  document.getElementById('scoreMaxLabel').textContent=30;
+  renderUnis(currentFilter);
+}
+
+function renderUnis(filter){
+  currentFilter=filter;
+  let list=UNIVERSITIES.filter(u=>{
+    const regionOk = filter==='all'||(filter==='cong-lap'||filter==='tu-thuc'?u.type===filter:u.region===filter);
+    // score filter: skip QT schools if max<30
+    const scoreOk = u.scoreMin===0 || (u.scoreMin<=scoreFilterMax && u.scoreMax>=scoreFilterMin);
+    return regionOk && scoreOk;
+  });
+  document.getElementById('uniCount').innerHTML=`<i class="fa-solid fa-circle-info" style="color:var(--v1)"></i> Hiển thị <b style="color:var(--v2)">${list.length}</b> / ${UNIVERSITIES.length} trường · <span style="color:var(--v3)">Điểm chuẩn ${scoreFilterMin}–${scoreFilterMax}</span> · <span style="color:var(--t3)">Nhấn <b>+ So sánh</b> để đối chiếu tối đa 3 trường</span>`;
+  document.getElementById('uniGrid').innerHTML=list.map(uniCard).join('');
+}
+function filterUni(filter,el){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  renderUnis(filter);
+}
+function uniCard(u){
+  const inCompare=compareList.find(c=>c.short===u.short);
+  return `<div class="uni-card" id="ucard-${u.short.replace(/\s/g,'_')}">
+    <div style="position:relative">
+      <img class="uni-card-img" src="${u.img}" alt="${u.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="uni-card-img-placeholder" style="display:none">${u.emoji}</div>
+      <div style="position:absolute;top:8px;right:8px">
+        <button onclick="toggleCompare('${u.short}')" style="padding:5px 10px;border-radius:20px;font-size:.7rem;font-weight:700;border:none;cursor:pointer;transition:all .2s;background:${inCompare?'linear-gradient(135deg,var(--v1),var(--v2))':'rgba(0,0,0,.6)'};color:#fff;backdrop-filter:blur(8px)">
+          ${inCompare?'✓ Đã chọn':'+ So sánh'}
+        </button>
+      </div>
+    </div>
+    <div class="uni-card-body">
+      <div class="uni-name">${u.name}</div>
+      <div class="uni-short"><a href="https://${u.web}" target="_blank" style="color:var(--v1);text-decoration:none">${u.short} <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.65rem"></i></a></div>
+      <div class="uni-meta">
+        <span class="badge-chip ${u.type==='cong-lap'?'chip-blue':'chip-pink'}">${u.type==='cong-lap'?'🏛️ Công lập':'🏢 Tư thục'}</span>
+        <span class="badge-chip chip-purple"><i class="fa-solid fa-location-dot"></i> ${u.region==='hn'?'Hà Nội':u.region==='hcm'?'TP.HCM':u.region==='dn'?'Đà Nẵng':'Địa phương'}</span>
+      </div>
+      <div style="font-size:.73rem;color:var(--t3);margin-bottom:8px"><i class="fa-solid fa-map-marker-alt" style="color:var(--v2)"></i> ${u.loc}</div>
+      <div style="font-size:.78rem;color:var(--t2);line-height:1.5;margin-bottom:10px"><b style="color:var(--t3)">Ngành đào tạo:</b> ${u.majors.slice(0,4).join(', ')}${u.majors.length>4?` <span style="color:var(--v1)">+${u.majors.length-4} ngành</span>`:''}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px">${u.admit.map(a=>`<span class="badge-chip chip-green" style="font-size:.62rem"><i class="fa-solid fa-check"></i> ${a}</span>`).join('')}</div>
+      <div class="uni-stat-row">
+        <div class="uni-stat">
+          <div class="uni-stat-n">${u.score}</div>
+          <div class="uni-stat-l">Điểm Chuẩn 2024</div>
+        </div>
+        <div class="uni-stat">
+          <div class="uni-stat-n" style="font-size:.75rem;line-height:1.3">${u.fee}</div>
+          <div class="uni-stat-l">Học Phí/Năm</div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+function filterUniByMajor(val){
+  const res=document.getElementById('uniByMajorResult');
+  if(!val.trim()){res.innerHTML='';return;}
+  if(typeof trackUniSearch!=='undefined'&&val.length>2) trackUniSearch(val); // 🔥 Firebase
+  const v=val.toLowerCase();
+  const matches=UNIVERSITIES.filter(u=>u.majors.some(m=>m.toLowerCase().includes(v)));
+  if(!matches.length){res.innerHTML=`<p style="color:var(--t3);font-size:.85rem;text-align:center;padding:16px"><i class="fa-solid fa-circle-xmark" style="color:var(--v2)"></i> Không tìm thấy trường có ngành phù hợp. Thử từ khóa khác.</p>`;return;}
+  res.innerHTML=`<p style="font-size:.78rem;color:var(--v5);margin-bottom:12px"><i class="fa-solid fa-check-circle"></i> Tìm thấy <b>${matches.length}</b> trường đào tạo ngành liên quan đến "<b style="color:var(--v2)">${val}</b>":</p><div class="card-grid card-grid-2">${matches.slice(0,8).map(u=>`<div class="card" style="padding:14px"><div style="font-family:var(--fd);font-weight:700;color:var(--t1);margin-bottom:4px">${u.emoji} ${u.name}</div><div style="color:var(--v1);font-size:.75rem;margin-bottom:6px">${u.short} · ⭐ Điểm chuẩn ${u.score}</div><div style="color:var(--v4);font-size:.72rem;margin-bottom:4px"><i class="fa-solid fa-money-bill"></i> ${u.fee}</div><div style="color:var(--t3);font-size:.73rem">${u.majors.filter(m=>m.toLowerCase().includes(v)).join(', ')}</div></div>`).join('')}</div>`;
+}
+
+// =====================
+// COMPARE
+// =====================
+function toggleCompare(short){
+  const u=UNIVERSITIES.find(x=>x.short===short);
+  if(!u)return;
+  const idx=compareList.findIndex(c=>c.short===u.short);
+  if(idx>=0){compareList.splice(idx,1);}
+  else{
+    if(compareList.length>=3){showToast('Chỉ so sánh tối đa 3 trường!');return;}
+    compareList.push(u);
+  }
+  updateCompareBar();
+  renderUnis(currentFilter);
+}
+function updateCompareBar(){
+  const bar=document.getElementById('compareBar');
+  const names=document.getElementById('compareNames');
+  if(compareList.length===0){bar.style.display='none';return;}
+  bar.style.display='flex';
+  names.innerHTML=compareList.map(u=>`<span style="background:rgba(255,255,255,.25);padding:4px 10px;border-radius:20px;font-size:.78rem;font-weight:700;color:#fff">${u.emoji} ${u.short}</span>`).join('');
+}
+function clearCompare(){
+  compareList=[];
+  updateCompareBar();
+  renderUnis(currentFilter);
+}
+function doCompare(){
+  if(compareList.length<2){showToast('Chọn ít nhất 2 trường để so sánh!');return;}
+  const cols=compareList;
+  const rows=[
+    {label:'🏫 Tên trường',vals:cols.map(c=>c.name)},
+    {label:'📍 Khu vực',vals:cols.map(c=>c.region==='hn'?'Hà Nội':c.region==='hcm'?'TP.HCM':c.region==='dn'?'Đà Nẵng':'Địa phương')},
+    {label:'🏛️ Loại hình',vals:cols.map(c=>c.type==='cong-lap'?'Công lập':'Tư thục')},
+    {label:'📊 Điểm chuẩn 2024',vals:cols.map(c=>`<b style="color:var(--v2)">${c.score}</b>`)},
+    {label:'💰 Học phí/năm',vals:cols.map(c=>`<span style="color:var(--v4)">${c.fee}</span>`)},
+    {label:'📝 Xét tuyển',vals:cols.map(c=>c.admit.map(a=>`<span class="badge-chip chip-green" style="font-size:.65rem;margin:2px">${a}</span>`).join(''))},
+    {label:'📚 Ngành tiêu biểu',vals:cols.map(c=>c.majors.slice(0,4).map(m=>`<span class="badge-chip chip-purple" style="margin:2px;font-size:.65rem">${m}</span>`).join(''))},
+    {label:'🌐 Website',vals:cols.map(c=>`<a href="https://${c.web}" target="_blank" style="color:var(--v3);font-size:.8rem">${c.web}</a>`)},
+  ];
+  const colW=`${Math.floor(90/cols.length)}%`;
+  document.getElementById('compareContent').innerHTML=`
+    <h2 style="font-family:var(--fd);font-size:1.2rem;font-weight:800;margin-bottom:22px;display:flex;align-items:center;gap:9px"><i class="fa-solid fa-scale-balanced" style="color:var(--v1)"></i> So Sánh ${cols.length} Trường</h2>
+    <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse">
+        <thead>
+          <tr>
+            <th style="padding:10px;text-align:left;font-size:.72rem;color:var(--t3);text-transform:uppercase;letter-spacing:.1em;font-family:var(--fd);width:10%;border-bottom:2px solid var(--bd)">Tiêu chí</th>
+            ${cols.map(c=>`<th style="padding:10px;text-align:center;width:${colW};border-bottom:2px solid var(--bd)"><div style="font-size:1.6rem">${c.emoji}</div><div style="font-family:var(--fd);font-size:.85rem;font-weight:800;color:var(--v1)">${c.short}</div></th>`).join('')}
+          </tr>
+        </thead>
+        <tbody>
+          ${rows.map((r,i)=>`<tr style="background:${i%2===0?'transparent':'rgba(255,255,255,.02)'}">
+            <td style="padding:12px 10px;font-size:.78rem;font-weight:700;color:var(--t3);border-bottom:1px solid var(--bd);white-space:nowrap">${r.label}</td>
+            ${r.vals.map(v=>`<td style="padding:12px 10px;text-align:center;font-size:.82rem;color:var(--t2);border-bottom:1px solid var(--bd)">${v}</td>`).join('')}
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>
+    <div style="text-align:center;margin-top:20px">
+      <button onclick="closeCompareModal()" style="padding:10px 24px;border-radius:50px;background:linear-gradient(135deg,var(--v1),var(--v2));color:#fff;border:none;font-family:var(--fd);font-weight:700;font-size:.85rem;cursor:pointer">Đóng</button>
+    </div>`;
+  document.getElementById('compareModal').classList.remove('hidden');
+  document.body.style.overflow='hidden';
+}
+function closeCompareModal(){
+  document.getElementById('compareModal').classList.add('hidden');
+  document.body.style.overflow='';
+}
+document.getElementById('compareModal').addEventListener('click',function(e){if(e.target===this)closeCompareModal();});
+
+// =====================
+// MAJORS
+// =====================
+function initMajors(){
+  const row=document.getElementById('comboTagsRow');
+  if(row.innerHTML!=='')return;
+  row.innerHTML=Object.keys(COMBOS).map(c=>`<span class="combo-tag" onclick="clickCombo('${c}',this)">${c}<br><small style="font-weight:400;font-size:.65rem">${COMBOS[c].join(' - ')}</small></span>`).join('');
+}
+function clickCombo(c,el){
+  document.querySelectorAll('.combo-tag').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('comboInput').value=c;
+  searchByCombo(c);
+}
+function searchByCombo(val){
+  const res=document.getElementById('majorResults');
+  const v=val.trim().toUpperCase();
+  if(typeof trackComboSearch!=='undefined'&&v.length>=2) trackComboSearch(v); // 🔥 Firebase
+  if(!v){res.innerHTML='<p style="text-align:center;color:var(--t3);padding:30px">Nhập tổ hợp môn để xem gợi ý ngành học</p>';return;}
+  // find matching combo
+  const exact=MAJORS_BY_COMBO[v];
+  if(exact){
+    res.innerHTML=`<div style="margin-bottom:16px;padding:14px;background:var(--bg2);border:1px solid rgba(16,185,129,.3);border-radius:var(--r2)">
+      <div style="font-size:.78rem;color:var(--v5);font-weight:700;margin-bottom:6px"><i class="fa-solid fa-check-circle"></i> Tổ hợp ${v} — ${COMBOS[v]?COMBOS[v].join(', '):'Kết hợp môn'}</div>
+      <div style="font-size:.82rem;color:var(--t2)">Tìm thấy ${exact.length} ngành phù hợp với tổ hợp này:</div>
+    </div>`+exact.map(m=>`
+    <div class="major-result-card">
+      <div class="major-name"><i class="fa-solid fa-book-open" style="color:var(--v1)"></i> ${m}</div>
+      <div class="major-desc">${getMajorDesc(m)}</div>
+      <div class="major-combos"><span class="badge-chip chip-purple">${v}</span>${getRelatedCombos(v,m).map(rc=>`<span class="badge-chip chip-blue">${rc}</span>`).join('')}</div>
+    </div>`).join('');
+  } else {
+    // partial search
+    const partial=Object.keys(MAJORS_BY_COMBO).filter(k=>k.includes(v)||v.includes(k.slice(0,1)));
+    if(partial.length){
+      res.innerHTML=`<p style="font-size:.82rem;color:var(--t3);margin-bottom:14px">Không tìm thấy tổ hợp chính xác "${v}". Có thể bạn muốn tìm:</p>`+partial.slice(0,3).map(p=>`<div style="margin-bottom:8px;padding:12px;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r1);cursor:pointer;transition:var(--tr)" onclick="clickComboByKey('${p}')"><b style="color:var(--v1)">${p}</b> — ${COMBOS[p]?COMBOS[p].join(', '):''}</div>`).join('');
+    } else {
+      res.innerHTML=`<p style="text-align:center;color:var(--t3);padding:30px">Không tìm thấy tổ hợp "${v}". Vui lòng thử: A00, A01, B00, D01...</p>`;
+    }
+  }
+}
+function clickComboByKey(k){
+  document.getElementById('comboInput').value=k;
+  searchByCombo(k);
+}
+function getMajorDesc(m){
+  const map={
+    "Công nghệ thông tin":"Lập trình, phát triển phần mềm, an toàn mạng. Nhu cầu tuyển dụng cao nhất Việt Nam hiện nay.",
+    "Y đa khoa":"Đào tạo bác sĩ 6 năm. Cơ hội nghề nghiệp rộng, thu nhập cao. Cần điểm chuẩn rất cao (25–28).",
+    "Quản trị kinh doanh":"Quản lý doanh nghiệp, lãnh đạo tổ chức. Cơ hội việc làm đa dạng trong mọi lĩnh vực.",
+    "Kỹ thuật phần mềm":"Phát triển ứng dụng, kiến trúc hệ thống phần mềm. Lương khởi điểm 10–18 triệu/tháng.",
+    "Marketing":"Tiếp thị, xây dựng thương hiệu, Digital Marketing. Nhu cầu cao trong thời đại số.",
+    "Luật":"Đào tạo luật sư, công chứng viên, pháp chế doanh nghiệp. Thời gian học 4–4.5 năm.",
+    "Dược học":"Nghiên cứu, bào chế và phân phối thuốc. Cơ hội việc làm tốt tại bệnh viện, công ty dược.",
+    "Kiến trúc":"Thiết kế công trình, quy hoạch đô thị. Học 5 năm, thi thêm môn năng khiếu (mỹ thuật).",
+    "Ngôn ngữ Anh":"Biên phiên dịch, giảng dạy, ngoại giao. Kết hợp tiếng Anh với chuyên ngành mở rộng cơ hội.",
+    "Kế toán kiểm toán":"Kế toán doanh nghiệp, kiểm toán tài chính. Nhu cầu tuyển dụng ổn định và đều đặn.",
+    "Trí tuệ nhân tạo":"AI/ML, học sâu, ứng dụng AI. Ngành mới nổi, lương cao nhất ngành IT hiện tại.",
+    "Tài chính - Ngân hàng":"Quản lý tài chính, ngân hàng, đầu tư chứng khoán. Nhiều cơ hội thăng tiến.",
+  };
+  return map[m]||"Ngành học có nhiều cơ hội phát triển nghề nghiệp trong thị trường lao động Việt Nam hiện nay.";
+}
+function getRelatedCombos(mainCombo,major){
+  const related=[];
+  for(const [k,v] of Object.entries(MAJORS_BY_COMBO)){
+    if(k!==mainCombo && v.includes(major)) related.push(k);
+  }
+  return related.slice(0,2);
+}
+
+// =====================
+// ADMISSIONS TABS
+// =====================
+function showAdmTab(id,el){
+  document.querySelectorAll('.adm-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.adm-panel').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('adm-'+id).classList.add('active');
+}
+
+// =====================
+// TYPES ALL GRID
+// =====================
+function renderTypesAll(){
+  const g=document.getElementById('typesAllGrid');
+  if(g&&g.innerHTML===''){
+    g.innerHTML=Object.entries(MBTI_TYPES).map(([k,v])=>`
+      <div class="type-card-sm" onclick="openQuizModal()">
+        <span class="type-emoji-sm">${v.emoji}</span>
+        <div class="type-code">${k}</div>
+        <div class="type-name-sm">${v.name}</div>
+      </div>`).join('');
+  }
+}
+
+// =====================
+// CERTS
+// =====================
+function renderCerts(){
+  const g=document.getElementById('certGrid');
+  if(g&&g.innerHTML!=='')return;
+  g.innerHTML=CERTS.map(c=>`
+    <div class="cert-card">
+      <div class="cert-icon">${c.icon}</div>
+      <div class="cert-name">${c.name}</div>
+      <div class="cert-full">${c.full} · <span style="color:var(--v1)">${c.org}</span></div>
+      <div style="font-size:.8rem;color:var(--t2);margin-bottom:10px;line-height:1.6"><i class="fa-solid fa-circle-check" style="color:var(--v5)"></i> <b>Dùng cho:</b> ${c.use}</div>
+      <div style="font-size:.78rem;color:var(--t3);margin-bottom:12px"><i class="fa-solid fa-wallet" style="color:var(--v4)"></i> <b>Lệ phí:</b> ${c.fee}</div>
+      <table class="cert-table">
+        <tr><th>Mức điểm</th><th>Ý nghĩa</th></tr>
+        ${c.levels.map(l=>`<tr><td><b style="color:var(--v2)">${l.level}</b></td><td>${l.desc}</td></tr>`).join('')}
+      </table>
+    </div>`).join('');
+}
+
+// =====================
+// EXAMS
+// =====================
+function renderExams(){
+  const g=document.getElementById('examsList');
+  if(g&&g.innerHTML!=='')return;
+  g.innerHTML=EXAMS.map(e=>`
+    <div class="exam-card">
+      <div class="exam-title">${e.icon} ${e.name}</div>
+      <div class="exam-org"><i class="fa-solid fa-university" style="color:var(--v1)"></i> ${e.org}</div>
+      <div class="exam-info-grid">
+        <div class="exam-info-item"><div class="exam-info-n">${e.structure.split('/')[0].trim()}</div><div class="exam-info-l">Số câu hỏi</div></div>
+        <div class="exam-info-item"><div class="exam-info-n">${e.structure.split('/')[1]?.trim()||'—'}</div><div class="exam-info-l">Thời gian</div></div>
+        <div class="exam-info-item"><div class="exam-info-n" style="font-size:.75rem">${e.fee}</div><div class="exam-info-l">Lệ phí</div></div>
+      </div>
+      <div style="font-size:.78rem;color:var(--t3);margin-bottom:10px"><i class="fa-solid fa-calendar" style="color:var(--v4)"></i> <b>Lịch thi 2025:</b> ${e.schedule}</div>
+      <div style="font-size:.78rem;color:var(--t3);margin-bottom:10px"><i class="fa-solid fa-university" style="color:var(--v2)"></i> <b>Chấp nhận:</b> ${e.accepted}</div>
+      <div style="font-size:.78rem;color:var(--t3);margin-bottom:10px"><i class="fa-solid fa-globe" style="color:var(--v3)"></i> <b>Đăng ký:</b> <a href="https://${e.register}" target="_blank" style="color:var(--v3);text-decoration:none">${e.register}</a></div>
+      <div style="margin-bottom:6px;font-size:.78rem;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.07em"><i class="fa-solid fa-list-ol" style="color:var(--v1)"></i> Các bước đăng ký:</div>
+      <ol class="exam-steps">${e.steps.map(s=>`<li>${s}</li>`).join('')}</ol>
+    </div>`).join('');
+}
+
+// =====================
+// CONFETTI & TOAST
+// =====================
+function launchConfetti(){
+  const colors=['#7c3aed','#ec4899','#06b6d4','#f59e0b','#10b981','#f472b6'];
+  for(let i=0;i<55;i++){
+    setTimeout(()=>{
+      const c=document.createElement('div');
+      c.className='conf';
+      c.style.cssText=`left:${Math.random()*100}vw;top:-20px;background:${colors[Math.floor(Math.random()*colors.length)]};width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;border-radius:${Math.random()>.5?'50%':'2px'};animation-duration:${2+Math.random()*2}s;animation-delay:${Math.random()*.5}s`;
+      document.body.appendChild(c);
+      setTimeout(()=>c.remove(),4000);
+    },i*30);
+  }
+}
+function showToast(msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toastMsg').textContent=msg;
+  t.classList.remove('hidden');
+  setTimeout(()=>t.classList.add('hidden'),2800);
+}
+
+// =================================================
+// INIT — data already inline, just boot
+// =================================================
+document.addEventListener('DOMContentLoaded', () => {
+  // Data is inline JS — ready immediately
+  console.log('✅ App ready:', Object.keys(MBTI_TYPES).length, 'MBTI types,', UNIVERSITIES.length, 'universities');
+});
+</script>
+</body>
+</html>
